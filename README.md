@@ -3,7 +3,7 @@
 **Group members**
 - Member 1 — Gabriel Giancarlo (2405449) https://github.com/GabeGiancarlo
 - Member 2 — (replace)
-- Member 3 — (replace)
+- Member 3 — (khalid AL-Mahmoud)
 
 **Repository**
 - (Post the repo link on Discord when ready)
