@@ -40,7 +40,7 @@ def fetch_revisions_for_page(title, revlimit=DEFAULT_REVS):
     # Get revisions with content and flags (flags/tags may appear in response)
     params = {
         "action": "query",
-        "prop": "revisions",
+        "prop": "revisions|pageprops",
         "titles": title,
         "rvprop": "ids|timestamp|user|comment|flags|size|tags|content",
         "rvslots": "main",
@@ -53,9 +53,11 @@ def fetch_revisions_for_page(title, revlimit=DEFAULT_REVS):
     data = r.json()
     pages = data.get("query", {}).get("pages", [])
     if not pages:
-        return []
-    revs = pages[0].get("revisions", []) or []
-    return revs
+        return [], None
+    page = pages[0]
+    revs = page.get("revisions", []) or []
+    pageid = page.get("pageid")
+    return revs, pageid
 
 
 def is_bot_revision(rev):
@@ -93,7 +95,7 @@ def api_summary():
 
     for title in titles:
         try:
-            revs = fetch_revisions_for_page(title, revlimit=revs_n)
+            revs, pageid = fetch_revisions_for_page(title, revlimit=revs_n)
         except Exception as e:
             results.append({"title": title, "error": str(e)})
             continue
@@ -103,6 +105,10 @@ def api_summary():
         anon_count = 0
         citation_deltas = []
         prev_ref_count = None
+        
+        # Create Wikipedia page URL
+        page_url = f"https://en.wikipedia.org/wiki/{title.replace(' ', '_')}"
+        
         # process in reverse chronological order (API returns newest first typically)
         for i, rev in enumerate(revs):
             rev_content = ""
@@ -120,11 +126,16 @@ def api_summary():
             else:
                 delta = ref_count - prev_ref_count
                 if delta != 0:
+                    # Create revision URL
+                    rev_url = f"https://en.wikipedia.org/w/index.php?title={title.replace(' ', '_')}&oldid={rev.get('revid')}"
                     citation_deltas.append({
                         "rev_id": rev.get("revid") or rev.get("revid", None),
                         "timestamp": rev.get("timestamp"),
                         "citation_delta": delta,
-                        "ref_count": ref_count
+                        "ref_count": ref_count,
+                        "rev_url": rev_url,
+                        "user": rev.get("user", "Unknown"),
+                        "comment": rev.get("comment", "")
                     })
                 prev_ref_count = ref_count
 
@@ -136,7 +147,8 @@ def api_summary():
 
         results.append({
             "title": title,
-            "pageid": revs[0].get("pageid") if revs else None,
+            "pageid": pageid,
+            "page_url": page_url,
             "total_revisions_analyzed": total,
             "bot_edits_count": bot_count,
             "bot_edit_percent": (bot_count / total * 100) if total else 0,
@@ -157,6 +169,16 @@ def api_summary():
 @app.route("/")
 def index():
     return send_from_directory("static", "index.html")
+
+@app.route("/api/debug")
+def api_debug():
+    """Debug endpoint to show what parameters are being received"""
+    return jsonify({
+        "query": request.args.get("query", "Not provided"),
+        "pages": request.args.get("pages", "Not provided"),
+        "revs": request.args.get("revs", "Not provided"),
+        "all_args": dict(request.args)
+    })
 
 
 if __name__ == "__main__":
