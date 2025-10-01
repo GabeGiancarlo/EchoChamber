@@ -2,7 +2,7 @@
 
 **Group members**
 - Member 1 — Gabriel Giancarlo (2405449) https://github.com/GabeGiancarlo
-- Member 2 — (replace)
+- Member 2 — Will Gatlin (2407413) https://github.com/will-the-g
 - Member 3 — (khalid AL-Mahmoud)
 
 **Repository**
