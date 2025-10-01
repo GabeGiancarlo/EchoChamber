@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Echo Chamber — Bot Activity Demo</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Arial; padding:20px; background:#f7f9fc;}
+    .controls{margin-bottom:12px;}
+    input, button{padding:8px 10px; font-size:14px;}
+    .card{background:white; padding:12px; border-radius:8px; box-shadow:0 1px 4px rgba(0,0,0,0.06); margin-bottom:10px;}
+    .muted{color:#666; font-size:0.9rem;}
+  </style>
+</head>
+<body>
+  <h2>Echo Chamber — Live Bot Activity & Citation Changes</h2>
+  <div class="controls card">
+    <label>Search query: <input id="query" value="AI-generated content Wikipedia" style="width:320px"></label>
+    <label> Pages: <input id="pages" value="3" style="width:60px"></label>
+    <label> Revs: <input id="revs" value="30" style="width:60px"></label>
+    <button id="run">Run query</button>
+    <div id="status" class="muted">Idle</div>
+  </div>
+
+  <div id="results"></div>
+
+  <script>
+    const runBtn = document.getElementById('run')
+    const status = document.getElementById('status')
+    runBtn.onclick = async () => {
+      const q = encodeURIComponent(document.getElementById('query').value)
+      const pages = document.getElementById('pages').value
+      const revs = document.getElementById('revs').value
+      status.textContent = 'Fetching…'
+      const res = await fetch(`/api/summary?query=${q}&pages=${pages}&revs=${revs}`)
+      const data = await res.json()
+      status.textContent = `Got ${data.results.length} pages`
+      const container = document.getElementById('results')
+      container.innerHTML = ''
+      data.results.forEach(r => {
+        const el = document.createElement('div')
+        el.className = 'card'
+        el.innerHTML = `
+          <strong>${r.title}</strong> <div class="muted">pageid: ${r.pageid}</div>
+          <p>Total revisions analyzed: ${r.total_revisions_analyzed} — Bot edits: ${r.bot_edits_count} (${r.bot_edit_percent.toFixed(1)}%)</p>
+          <p>Anonymous edits (heuristic): ${r.anonymous_edits_count}</p>
+          <p><strong>Citation changes:</strong></p>
+          <ul>
+            ${r.citation_deltas.length ? r.citation_deltas.map(d => `<li>${d.timestamp}: delta=${d.citation_delta} (refs now ${d.ref_count})</li>`).join('') : '<li class="muted">No citation changes detected in analyzed revisions</li>'}
+          </ul>
+        `
+        container.appendChild(el)
+      })
+    }
+
+    // auto-run once
+    runBtn.click()
+  </script>
+</body>
+</html>
