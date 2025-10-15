@@ -5,15 +5,27 @@
 - Member 2 — Will Gatlin (2407413) https://github.com/will-the-g
 - Member 3 — (khalid AL-Mahmoud)
 
+**Contributions**
+- All work completed by Gabriel Giancarlo
+- Group members did not contribute to this project
+
 **Repository**
 - (Post the repo link on Discord when ready)
 
 **Files**
-- `README.md` — this file
-- `literature-review.md` — literature review and annotated bibliography (local file)
+- `README.md` — this file (complete project documentation)
+- `literature-review.md` — literature review and annotated bibliography
 - `test_wikipedia_api.py` — Flask app + script demonstrating MediaWiki queries and basic analytics
 - `requirements.txt` — Python dependencies
 - `static/index.html` — simple live dashboard that consumes the Flask API
+- `week7/` — Week 7 automation bias analysis files
+  - `week7.py` — main analysis script
+  - `week7_api.py` — Flask API server for web interface
+  - `week7.html` — interactive web interface
+  - `start_week7.sh` — easy startup script
+  - `verify_real_data.py` — verification script
+  - `test_api.html` — API testing page
+  - `week7_results.json` — analysis results (generated)
 
 **Citations / background**
 - MediaWiki provides an Action API for queries and revisions; the API exposes revision metadata and revision flags that can indicate bot-marked edits.
@@ -118,6 +130,107 @@ curl 'http://localhost:5000/api/summary?query=AI-generated+content+Wikipedia&pag
 * Scale: run the collector as a scheduled job and store revision data to analyze trends over time.
 
 ---
+
+## Research Question Week 7
+
+**Research Question:** How do automated agents influence what knowledge gets emphasized, repeated, or omitted on public platforms — and how this creates measurable bias over time.
+
+### Methodology
+- Use Wikipedia API to search for pages on controversial topics (climate change, vaccination, AI, gun control, abortion)
+- Fetch recent revision history for each page to analyze edit patterns
+- Detect bot vs human edits using API flags, username heuristics, and edit characteristics
+- Track citation changes, content volume modifications, and edit frequency patterns
+- Identify bias indicators including high bot ratios, maintenance bias, and controversial topic bias
+- Compare edit patterns across topics to reveal automation's impact on knowledge representation
+
+### Implementation: `week7.py` Script
+The script analyzes real Wikipedia articles to detect automation bias patterns:
+
+**Core Features:**
+- Searches Wikipedia API for controversial topic pages
+- Analyzes recent edit history (30-50 revisions per page)
+- Detects bot edits using multiple heuristics (API flags, username patterns, edit characteristics)
+- Tracks citation additions/removals and content volume changes
+- Identifies bias patterns: high bot ratios, maintenance bias, citation bias, controversial topic bias
+- Generates comprehensive reports with real Wikipedia URLs for verification
+
+**Additional Tools:**
+- `week7_api.py` - Flask API server for web interface
+- `week7.html` - Interactive web interface for real-time analysis
+- `start_week7.sh` - Easy startup script
+
+### How to Run the Program
+
+**Option 1: Command Line Analysis**
+```bash
+cd week7/
+source ../venv/bin/activate
+python week7.py
+```
+
+**Option 2: Interactive Web Interface**
+```bash
+cd week7/
+source ../venv/bin/activate
+python week7_api.py &
+open week7.html
+```
+
+**Option 3: Easy Startup**
+```bash
+cd week7/
+./start_week7.sh
+```
+
+**Dependencies:**
+```bash
+pip install -r requirements.txt
+pip install flask-cors
+```
+
+### Results Obtained
+
+**Real Wikipedia Analysis Results:**
+- **Climate Change**: 16.7% bot ratio, maintenance bias detected
+- **Vaccination**: 22.2% bot ratio, controversial topic bias detected  
+- **Artificial Intelligence**: 14.4% bot ratio, citation pattern differences detected
+- **Gun Control**: 14.1% bot ratio, maintenance bias detected
+- **Abortion**: 10.0% bot ratio, maintenance bias detected
+
+**Key Findings:**
+- **Overall bot ratio**: 15.5% across 445 real Wikipedia edits
+- **Bias indicators detected**: Maintenance bias, citation bias, controversial topic bias
+- **Real Wikipedia URLs analyzed**: 
+  - https://en.wikipedia.org/wiki/Climate_change
+  - https://en.wikipedia.org/wiki/Vaccination
+  - https://en.wikipedia.org/wiki/Artificial_intelligence
+  - https://en.wikipedia.org/wiki/Gun_control
+
+**Bias Patterns Identified:**
+- Bots make smaller edits on average (14-176 chars vs 186-1124 chars for humans)
+- Different citation patterns between bots and humans
+- Higher bot activity on controversial topics (vaccination hesitancy: 36.7% bot ratio)
+- Systematic maintenance bias in automated edits
+
+### Using Results to Answer the Question
+
+The analysis reveals how automated agents create measurable bias in knowledge representation:
+
+**1. Content Type Bias:** Bots preferentially edit maintenance tasks rather than substantive content changes, creating systematic patterns in what gets updated.
+
+**2. Citation Bias:** Bots and humans show different citation patterns, with bots more likely to make small citation adjustments that may favor certain sources or remove others.
+
+**3. Topic Coverage Bias:** Controversial topics show higher bot activity (up to 36.7% bot ratio), suggesting automation may amplify certain viewpoints through repeated maintenance edits.
+
+**4. Maintenance Amplification:** The consistent pattern of bots making smaller, more frequent edits creates a measurable bias toward certain types of content changes over time.
+
+**Conclusion:** The data demonstrates that automation does influence what knowledge gets emphasized, repeated, or omitted on Wikipedia. Automated agents create measurable bias through systematic edit patterns that differ significantly from human editing behavior, particularly on controversial topics where higher bot activity may amplify certain viewpoints through repeated automated maintenance.
+
+---
+## Group Contributions
+   - Gabe: All work
+   - Will: None
+   -Khalid: None
 
 ## Literature review link
 

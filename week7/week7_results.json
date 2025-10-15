@@ -1,0 +1,395 @@
+{
+  "timestamp": "2025-10-15T11:21:24.725788",
+  "topics_analyzed": 5,
+  "analyses": [
+    {
+      "topic": "climate change",
+      "pages_analyzed": 3,
+      "total_edits": 90,
+      "total_bot_edits": 15,
+      "bias_indicators": [
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 10, human: 186 chars)",
+          "severity": "low"
+        },
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 134, human: 515 chars)",
+          "severity": "low"
+        }
+      ],
+      "page_results": [
+        {
+          "title": "Climate change",
+          "pageid": 5042951,
+          "page_url": "https://en.wikipedia.org/wiki/Climate_change",
+          "total_edits": 30,
+          "bot_edits": 2,
+          "bot_ratio": 0.06666666666666667,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 10, human: 186 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 29,
+            "citation_changes_count": 29,
+            "amplification_count": 1
+          }
+        },
+        {
+          "title": "Climate change denial",
+          "pageid": 12474403,
+          "page_url": "https://en.wikipedia.org/wiki/Climate_change_denial",
+          "total_edits": 30,
+          "bot_edits": 6,
+          "bot_ratio": 0.2,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 134, human: 515 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 29,
+            "citation_changes_count": 29,
+            "amplification_count": 1
+          }
+        },
+        {
+          "title": "Paris Agreement",
+          "pageid": 30242372,
+          "page_url": "https://en.wikipedia.org/wiki/Paris_Agreement",
+          "total_edits": 30,
+          "bot_edits": 7,
+          "bot_ratio": 0.23333333333333334,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 29,
+            "citation_changes_count": 29,
+            "amplification_count": 1
+          }
+        }
+      ],
+      "overall_bot_ratio": 0.16666666666666666,
+      "bias_severity": "medium"
+    },
+    {
+      "topic": "vaccination",
+      "pages_analyzed": 3,
+      "total_edits": 90,
+      "total_bot_edits": 20,
+      "bias_indicators": [
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 31, human: 245 chars)",
+          "severity": "low"
+        },
+        {
+          "type": "high_bot_ratio",
+          "description": "Significant bot edit ratio (36.7%) may indicate automated bias",
+          "severity": "low"
+        },
+        {
+          "type": "controversial_topic_bias",
+          "description": "High bot activity (36.7%) on controversial topic",
+          "severity": "medium"
+        }
+      ],
+      "page_results": [
+        {
+          "title": "Vaccination",
+          "pageid": 32473,
+          "page_url": "https://en.wikipedia.org/wiki/Vaccination",
+          "total_edits": 30,
+          "bot_edits": 7,
+          "bot_ratio": 0.23333333333333334,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 31, human: 245 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 29,
+            "citation_changes_count": 29,
+            "amplification_count": 1
+          }
+        },
+        {
+          "title": "Vaccine hesitancy",
+          "pageid": 1742315,
+          "page_url": "https://en.wikipedia.org/wiki/Vaccine_hesitancy",
+          "total_edits": 30,
+          "bot_edits": 11,
+          "bot_ratio": 0.36666666666666664,
+          "bias_indicators": [
+            {
+              "type": "high_bot_ratio",
+              "description": "Significant bot edit ratio (36.7%) may indicate automated bias",
+              "severity": "low"
+            },
+            {
+              "type": "controversial_topic_bias",
+              "description": "High bot activity (36.7%) on controversial topic",
+              "severity": "medium"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 29,
+            "citation_changes_count": 29,
+            "amplification_count": 1
+          }
+        },
+        {
+          "title": "Anti-vaccine activism",
+          "pageid": 73735462,
+          "page_url": "https://en.wikipedia.org/wiki/Anti-vaccine_activism",
+          "total_edits": 30,
+          "bot_edits": 2,
+          "bot_ratio": 0.06666666666666667,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 29,
+            "citation_changes_count": 29,
+            "amplification_count": 1
+          }
+        }
+      ],
+      "overall_bot_ratio": 0.2222222222222222,
+      "bias_severity": "medium"
+    },
+    {
+      "topic": "artificial intelligence",
+      "pages_analyzed": 3,
+      "total_edits": 90,
+      "total_bot_edits": 13,
+      "bias_indicators": [
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 176, human: 394 chars)",
+          "severity": "low"
+        },
+        {
+          "type": "citation_bias",
+          "description": "Bots and humans show different citation patterns (bot: -1.0, human: 0.0)",
+          "severity": "low"
+        },
+        {
+          "type": "content_amplification_bias",
+          "description": "Bots responsible for 1/1 content amplifications",
+          "severity": "medium"
+        },
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 2, human: 408 chars)",
+          "severity": "low"
+        }
+      ],
+      "page_results": [
+        {
+          "title": "Artificial intelligence",
+          "pageid": 1164,
+          "page_url": "https://en.wikipedia.org/wiki/Artificial_intelligence",
+          "total_edits": 30,
+          "bot_edits": 6,
+          "bot_ratio": 0.2,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 176, human: 394 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 29,
+            "citation_changes_count": 29,
+            "amplification_count": 1
+          }
+        },
+        {
+          "title": "Artificial general intelligence",
+          "pageid": 586357,
+          "page_url": "https://en.wikipedia.org/wiki/Artificial_general_intelligence",
+          "total_edits": 30,
+          "bot_edits": 5,
+          "bot_ratio": 0.16666666666666666,
+          "bias_indicators": [
+            {
+              "type": "citation_bias",
+              "description": "Bots and humans show different citation patterns (bot: -1.0, human: 0.0)",
+              "severity": "low"
+            },
+            {
+              "type": "content_amplification_bias",
+              "description": "Bots responsible for 1/1 content amplifications",
+              "severity": "medium"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 29,
+            "citation_changes_count": 29,
+            "amplification_count": 1
+          }
+        },
+        {
+          "title": "History of artificial intelligence",
+          "pageid": 2894560,
+          "page_url": "https://en.wikipedia.org/wiki/History_of_artificial_intelligence",
+          "total_edits": 30,
+          "bot_edits": 2,
+          "bot_ratio": 0.06666666666666667,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 2, human: 408 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 29,
+            "citation_changes_count": 29,
+            "amplification_count": 1
+          }
+        }
+      ],
+      "overall_bot_ratio": 0.14444444444444443,
+      "bias_severity": "high"
+    },
+    {
+      "topic": "gun control",
+      "pages_analyzed": 3,
+      "total_edits": 85,
+      "total_bot_edits": 12,
+      "bias_indicators": [
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 42, human: 760 chars)",
+          "severity": "low"
+        }
+      ],
+      "page_results": [
+        {
+          "title": "Gun control",
+          "pageid": 44276,
+          "page_url": "https://en.wikipedia.org/wiki/Gun_control",
+          "total_edits": 30,
+          "bot_edits": 5,
+          "bot_ratio": 0.16666666666666666,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 29,
+            "citation_changes_count": 29,
+            "amplification_count": 1
+          }
+        },
+        {
+          "title": "Overview of gun laws by nation",
+          "pageid": 12686,
+          "page_url": "https://en.wikipedia.org/wiki/Overview_of_gun_laws_by_nation",
+          "total_edits": 25,
+          "bot_edits": 2,
+          "bot_ratio": 0.08,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 42, human: 760 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 24,
+            "citation_changes_count": 24,
+            "amplification_count": 1
+          }
+        },
+        {
+          "title": "Gun politics in the United States",
+          "pageid": 450957,
+          "page_url": "https://en.wikipedia.org/wiki/Gun_politics_in_the_United_States",
+          "total_edits": 30,
+          "bot_edits": 5,
+          "bot_ratio": 0.16666666666666666,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 29,
+            "citation_changes_count": 29,
+            "amplification_count": 1
+          }
+        }
+      ],
+      "overall_bot_ratio": 0.1411764705882353,
+      "bias_severity": "low"
+    },
+    {
+      "topic": "abortion",
+      "pages_analyzed": 3,
+      "total_edits": 90,
+      "total_bot_edits": 9,
+      "bias_indicators": [
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 2, human: 1124 chars)",
+          "severity": "low"
+        }
+      ],
+      "page_results": [
+        {
+          "title": "Abortion",
+          "pageid": 765,
+          "page_url": "https://en.wikipedia.org/wiki/Abortion",
+          "total_edits": 30,
+          "bot_edits": 4,
+          "bot_ratio": 0.13333333333333333,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 29,
+            "citation_changes_count": 29,
+            "amplification_count": 1
+          }
+        },
+        {
+          "title": "Abortion law",
+          "pageid": 697618,
+          "page_url": "https://en.wikipedia.org/wiki/Abortion_law",
+          "total_edits": 30,
+          "bot_edits": 3,
+          "bot_ratio": 0.1,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 29,
+            "citation_changes_count": 29,
+            "amplification_count": 1
+          }
+        },
+        {
+          "title": "Abortion in the United States",
+          "pageid": 256024,
+          "page_url": "https://en.wikipedia.org/wiki/Abortion_in_the_United_States",
+          "total_edits": 30,
+          "bot_edits": 2,
+          "bot_ratio": 0.06666666666666667,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 2, human: 1124 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 29,
+            "citation_changes_count": 29,
+            "amplification_count": 1
+          }
+        }
+      ],
+      "overall_bot_ratio": 0.1,
+      "bias_severity": "low"
+    }
+  ]
+}

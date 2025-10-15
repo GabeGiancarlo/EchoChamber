@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+</head>
+<body>
+    <h1>Testing Week 7 API</h1>
+    <button onclick="testAPI()">Test API Connection</button>
+    <div id="result"></div>
+
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing API connection...';
+            
+            try {
+                const response = await fetch('http://localhost:5002/api/analyze?topic=climate%20change&pages=2&revisions=5', {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                console.log('Response status:', response.status);
+                console.log('Response ok:', response.ok);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('API data:', data);
+                    resultDiv.innerHTML = `
+                        <h3>✅ API Working!</h3>
+                        <p>Topic: ${data.topic}</p>
+                        <p>Pages: ${data.pages_analyzed}</p>
+                        <p>Total edits: ${data.total_edits}</p>
+                        <p>Bot ratio: ${(data.overall_bot_ratio * 100).toFixed(1)}%</p>
+                        <h4>Real Wikipedia Pages:</h4>
+                        <ul>
+                            ${data.page_results.map(page => 
+                                `<li><a href="${page.page_url}" target="_blank">${page.title}</a></li>`
+                            ).join('')}
+                        </ul>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<h3>❌ API Error: ${response.status}</h3>`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                resultDiv.innerHTML = `<h3>❌ Connection Error: ${error.message}</h3>`;
+            }
+        }
+    </script>
+</body>
+</html>
