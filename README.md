@@ -9,7 +9,7 @@
 - All work completed by Gabriel Giancarlo
 
 **Repository**
-- (Post the repo link on Discord when ready)
+- https://github.com/GabeGiancarlo/EchoChamber
 
 **Files**
 - `README.md` — this file (complete project documentation)
