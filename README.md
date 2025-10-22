@@ -7,7 +7,6 @@
 
 **Contributions**
 - All work completed by Gabriel Giancarlo
-- Group members did not contribute to this project
 
 **Repository**
 - (Post the repo link on Discord when ready)
