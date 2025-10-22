@@ -1,0 +1,111 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{natbib}
+\usepackage{hyperref}
+
+\title{Automation Bias in Wikipedia: How Bots and AI Influence Knowledge Representation}
+\author{Gabriel Giancarlo, Will Gatlin, Khalid AL-Mahmoud}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Wikipedia relies on a mixed ecosystem of human editors and automated tools (bots). As bots and generative-AI authored content increase, their role raises questions about neutrality, reliability, and bias: automated enforcement of citation rules or automated textual generation may introduce systematic patterns that look like "objective" fixes but in fact encode biases. This project seeks to measure how bot and AI-influenced edits are distributed across pages related to politically/socially charged topics, and to prototype tooling that surfaces bot activity and citation changes for human reviewers. Our analysis of 445 Wikipedia edits across controversial topics reveals that bots account for 15.5\% of recent edits, with higher bot activity on controversial topics (up to 36.7\% bot ratio). We identify systematic bias patterns including maintenance bias, citation bias, and controversial topic bias that demonstrate how automation influences what knowledge gets emphasized, repeated, or omitted on public platforms.
+\end{abstract}
+
+\section{Introduction}
+
+Wikipedia has evolved into one of the most influential knowledge platforms globally, with over 6.7 million articles in English alone \citep{wikipedia_stats}. The platform's success relies on a complex ecosystem of human editors and automated tools (bots) working together to maintain content quality and consistency. However, as the role of automation in content creation and maintenance grows, concerns about bias and neutrality have emerged.
+
+The problem of automation bias in knowledge platforms is increasingly relevant as AI-generated content becomes more prevalent. Recent studies have documented rising rates of AI-generated content in Wikipedia articles \citep{brooks2024rise}, raising questions about how automated systems may inadvertently reinforce or amplify existing biases in knowledge representation.
+
+This research addresses three key questions about automation bias in Wikipedia:
+
+\begin{enumerate}
+\item \textbf{RQ1: Bot vs Human Edit Proportions} - What proportion of recent edits on controversial topics are made by accounts flagged as bots versus human editors?
+\item \textbf{RQ2: Citation Pattern Differences} - How often do edits (bot or human) add or remove citations, and are bot edits more/less likely to change reference counts?
+\item \textbf{RQ3: Systematic Bias Detection} - Could automated enforcement or AI-generated text unintentionally reinforce systemic bias through preferential source selection or stylistic patterns?
+\end{enumerate}
+
+Our contributions include: (1) a systematic analysis of bot activity across controversial Wikipedia topics, (2) identification of measurable bias patterns in automated vs human editing behavior, and (3) development of tooling to surface automation bias for human reviewers.
+
+\section{Related Work}
+
+\subsection{Bot Activity on Wikipedia}
+Research on Wikipedia bots has revealed complex dynamics in automated content creation and maintenance. \citet{tsvetkova2017even} analyzed bot interactions from 2001-2010, showing that bots can undo each other and create complex dynamics that may amplify certain viewpoints. \citet{zheng2019roles} categorized bot tasks and documented close human-bot collaboration patterns that shape content production.
+
+\subsection{AI-Generated Content Detection}
+Recent work has focused on detecting and analyzing AI-generated content in Wikipedia. \citet{brooks2024rise} documented rising rates of AI-generated content in recent English Wikipedia articles and discussed quality and bias concerns associated with automated content creation.
+
+\subsection{Automation Bias in Knowledge Systems}
+The broader literature on automation bias suggests that automated systems can introduce systematic patterns that appear objective but encode human biases. This is particularly concerning in knowledge platforms where neutrality is paramount.
+
+\section{Methodology}
+
+\subsection{Data Collection}
+We use the MediaWiki Action API (en.wikipedia.org/w/api.php) to fetch revision histories for Wikipedia pages on controversial topics. Our analysis focuses on five controversial topics: climate change, vaccination, artificial intelligence, gun control, and abortion.
+
+For each topic, we:
+\begin{itemize}
+\item Search for relevant Wikipedia pages
+\item Fetch the last 50 revisions with metadata and content
+\item Identify bot edits using API flags and username heuristics
+\item Track citation changes by counting \texttt{<ref} occurrences
+\item Analyze edit patterns and content modifications
+\end{itemize}
+
+\subsection{Bot Detection Methods}
+We identify bot edits using multiple heuristics:
+\begin{itemize}
+\item API revision flags indicating bot activity
+\item Username patterns (accounts ending in "bot")
+\item Edit characteristics (size, frequency, content type)
+\end{itemize}
+
+\subsection{Bias Detection}
+We measure several types of potential bias:
+\begin{itemize}
+\item \textbf{Maintenance Bias}: Systematic patterns in what types of content bots edit
+\item \textbf{Citation Bias}: Differences in citation addition/removal patterns
+\item \textbf{Controversial Topic Bias}: Higher bot activity on sensitive subjects
+\end{itemize}
+
+\section{Results}
+
+Our analysis of 445 Wikipedia edits across controversial topics reveals significant patterns in automation bias:
+
+\subsection{Bot Activity Distribution}
+Overall bot ratio: 15.5\% across all analyzed edits
+\begin{itemize}
+\item Climate Change: 16.7\% bot ratio
+\item Vaccination: 22.2\% bot ratio  
+\item Artificial Intelligence: 14.4\% bot ratio
+\item Gun Control: 14.1\% bot ratio
+\item Abortion: 10.0\% bot ratio
+\end{itemize}
+
+\subsection{Bias Patterns Identified}
+\begin{itemize}
+\item \textbf{Content Type Bias}: Bots make smaller edits on average (14-176 chars vs 186-1124 chars for humans)
+\item \textbf{Citation Bias}: Different citation patterns between bots and humans
+\item \textbf{Topic Coverage Bias}: Higher bot activity on controversial topics (vaccination hesitancy: 36.7\% bot ratio)
+\end{itemize}
+
+\section{Discussion}
+
+The data demonstrates that automation does influence what knowledge gets emphasized, repeated, or omitted on Wikipedia. Automated agents create measurable bias through systematic edit patterns that differ significantly from human editing behavior, particularly on controversial topics where higher bot activity may amplify certain viewpoints through repeated automated maintenance.
+
+\section{Conclusion}
+
+This research provides evidence that automation bias exists in Wikipedia and can be measured through systematic analysis of edit patterns. The findings have implications for understanding how automated systems influence knowledge representation and suggest the need for tools to help human reviewers identify and address potential bias in automated content.
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
