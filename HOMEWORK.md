@@ -21,14 +21,14 @@ The paper structure includes:
 The repository has been reorganized according to professional research standards:
 
 ```
-EchoChamber-2/
+EchoChamber-3/
 ├── data/          # datasets and data files (week7_results.json)
 ├── src/           # analysis scripts and code (week7.py, test_wikipedia_api.py, etc.)
 ├── paper/         # LaTeX paper files
 ├── literature/     # literature review files (literature-review.md)
 ├── prompts/       # AI agent workflows (literature-review.prompt.md)
 ├── figures/       # generated visualizations (empty, ready for plots)
-├── static/        # web interface files (HTML, CSS, JS)
+├── web/           # web interface files (HTML, CSS, JS)
 ├── .gitignore     # git exclusions for LaTeX, Python, system files
 └── README.md      # project documentation
 ```

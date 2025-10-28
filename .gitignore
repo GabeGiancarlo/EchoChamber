@@ -2,17 +2,36 @@
 *.aux
 *.log
 *.out
+*.toc
 *.bbl
 *.blg
-*.toc
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.pdfsync
+*.bcf
+*.run.xml
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
 *.lof
 *.lot
-*.fls
-*.fdb_latexmk
-*.synctex.gz
+*.maf
+*.mtc
+*.mtc1
 *.nav
+*.nlo
 *.snm
 *.vrb
+*.xdy
+*.tdo
+*.toc
+*.lol
+*.auxlock
 
 # System files
 .DS_Store
@@ -50,14 +69,29 @@ MANIFEST
 venv/
 env/
 ENV/
+env.bak/
+venv.bak/
 
-# IDE
+# IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
 
 # Large data files (uncomment if needed)
 # *.csv
 # *.json
 # *.pkl
+# *.h5
+# *.hdf5
+
+# Temporary files
+*.tmp
+*.temp
