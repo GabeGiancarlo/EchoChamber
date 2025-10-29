@@ -14,7 +14,7 @@
             resultDiv.innerHTML = 'Testing API connection...';
             
             try {
-                const response = await fetch('http://localhost:5002/api/analyze?topic=climate%20change&pages=2&revisions=5', {
+                const response = await fetch('http://localhost:5001/api/summary?query=climate%20change&pages=2&revs=5', {
                     method: 'GET',
                     mode: 'cors',
                     headers: {
@@ -28,16 +28,22 @@
                 if (response.ok) {
                     const data = await response.json();
                     console.log('API data:', data);
+                    
+                    // Calculate overall stats
+                    const totalEdits = data.results.reduce((sum, page) => sum + page.total_revisions_analyzed, 0);
+                    const totalBotEdits = data.results.reduce((sum, page) => sum + page.bot_edits_count, 0);
+                    const overallBotRatio = totalBotEdits / totalEdits;
+                    
                     resultDiv.innerHTML = `
                         <h3>✅ API Working!</h3>
-                        <p>Topic: ${data.topic}</p>
-                        <p>Pages: ${data.pages_analyzed}</p>
-                        <p>Total edits: ${data.total_edits}</p>
-                        <p>Bot ratio: ${(data.overall_bot_ratio * 100).toFixed(1)}%</p>
+                        <p>Query: ${data.query}</p>
+                        <p>Pages: ${data.results.length}</p>
+                        <p>Total edits: ${totalEdits}</p>
+                        <p>Bot ratio: ${(overallBotRatio * 100).toFixed(1)}%</p>
                         <h4>Real Wikipedia Pages:</h4>
                         <ul>
-                            ${data.page_results.map(page => 
-                                `<li><a href="${page.page_url}" target="_blank">${page.title}</a></li>`
+                            ${data.results.map(page => 
+                                `<li><a href="${page.page_url}" target="_blank">${page.title}</a> (${page.bot_edit_percent.toFixed(1)}% bot edits)</li>`
                             ).join('')}
                         </ul>
                     `;
