@@ -37,73 +37,263 @@ Our contributions include: (1) a systematic analysis of bot activity across cont
 
 \section{Related Work}
 
-\subsection{Bot Activity on Wikipedia}
-Research on Wikipedia bots has revealed complex dynamics in automated content creation and maintenance. \citet{tsvetkova2017even} analyzed bot interactions from 2001-2010, showing that bots can undo each other and create complex dynamics that may amplify certain viewpoints. \citet{zheng2019roles} categorized bot tasks and documented close human-bot collaboration patterns that shape content production.
+\subsection{Bot Activity and Behavior on Wikipedia}
 
-\subsection{AI-Generated Content Detection}
-Recent work has focused on detecting and analyzing AI-generated content in Wikipedia. \citet{brooks2024rise} documented rising rates of AI-generated content in recent English Wikipedia articles and discussed quality and bias concerns associated with automated content creation.
+Research on Wikipedia bots has revealed complex dynamics in automated content creation and maintenance. \citet{tsvetkova2017even} conducted a comprehensive analysis of bot interactions from 2001-2010, examining millions of edits across Wikipedia's history. Their study revealed that bots frequently undo each other's changes, creating complex edit wars that may amplify certain viewpoints through repeated automated enforcement. The authors found that even well-intentioned bots can create systematic patterns that influence content neutrality, providing a cautionary case for scaling automated enforcement without human oversight.
+
+\citet{zheng2019roles} categorized bot tasks into distinct roles including maintenance, content creation, and quality assurance. They documented close human-bot collaboration patterns that shape content production, showing that bots often work in teams with human editors to maintain article quality. Their research identified that bots perform approximately one-third of all edits on Wikipedia, with significant variation across article categories. The study also highlighted how bot behavior patterns can influence which articles receive more maintenance attention, potentially creating systematic biases in content quality across different topics.
+
+\subsection{AI-Generated Content in Knowledge Platforms}
+
+Recent work has focused on detecting and analyzing AI-generated content in Wikipedia. \citet{brooks2024rise} documented rising rates of AI-generated content in recent English Wikipedia articles, finding that generative AI tools are increasingly being used to create and edit content. Their analysis revealed quality and bias concerns associated with automated content creation, including issues with source reliability, factual accuracy, and potential amplification of existing biases. The study raises important questions about how AI-generated content may differ from both human-authored and traditional bot-edited content in terms of bias patterns.
+
+The proliferation of AI-generated content introduces new challenges for maintaining Wikipedia's neutrality and reliability standards. Unlike traditional bots that typically perform maintenance tasks, AI-generated content may include substantive text generation that requires different detection and analysis methods.
 
 \subsection{Automation Bias in Knowledge Systems}
-The broader literature on automation bias suggests that automated systems can introduce systematic patterns that appear objective but encode human biases. This is particularly concerning in knowledge platforms where neutrality is paramount.
+
+The broader literature on automation bias suggests that automated systems can introduce systematic patterns that appear objective but encode human biases \citep{parasuraman2000humans}. In knowledge platforms where neutrality is paramount, automation bias can manifest through several mechanisms: (1) preferential enforcement of certain editorial policies, (2) systematic differences in which content areas receive automated attention, and (3) algorithmic amplification of certain viewpoints through repeated automated edits.
+
+Research in human-computer interaction has shown that automation bias can lead users to over-rely on automated systems and accept their outputs uncritically \citep{mosier2002automation}. In the context of Wikipedia, this suggests that high bot activity on certain topics may create an appearance of consensus or quality that masks underlying bias patterns.
+
+\subsection{Citation Patterns and Source Quality}
+
+Studies of citation patterns in Wikipedia have revealed that bots and humans differ in their approach to citation management. Bots typically focus on technical maintenance tasks such as fixing broken links, standardizing citation formats, and removing duplicate references. However, these maintenance activities can inadvertently influence which sources are retained or removed, potentially creating systematic biases in source representation.
+
+The quality and diversity of sources cited in Wikipedia articles is critical for maintaining neutrality. Research has shown that controversial topics often have more polarized citation patterns, with different editors preferentially citing sources that support their viewpoints \citep{halfaker2013rise}. The role of bots in managing these citations raises questions about whether automated maintenance may systematically favor certain types of sources or citation patterns.
+
+\subsection{Methodological Approaches to Bias Detection}
+
+Previous research on bias detection in Wikipedia has employed various methodologies including network analysis of editor interactions, content analysis of edit patterns, and statistical comparison of bot vs human editing behavior. However, few studies have specifically focused on automation bias as a distinct phenomenon that can be measured through systematic analysis of edit characteristics.
+
+Our work builds on these methodological foundations while introducing new approaches to measuring automation bias through comparative analysis of edit patterns, citation changes, and content modifications across controversial topics.
 
 \section{Methodology}
 
-\subsection{Data Collection}
-We use the MediaWiki Action API (en.wikipedia.org/w/api.php) to fetch revision histories for Wikipedia pages on controversial topics. Our analysis focuses on five controversial topics: climate change, vaccination, artificial intelligence, gun control, and abortion.
+\subsection{Research Design}
 
-For each topic, we:
-\begin{itemize}
-\item Search for relevant Wikipedia pages
-\item Fetch the last 50 revisions with metadata and content
-\item Identify bot edits using API flags and username heuristics
-\item Track citation changes by counting \texttt{<ref} occurrences
-\item Analyze edit patterns and content modifications
-\end{itemize}
+Our study employs a quantitative analysis of Wikipedia edit patterns across controversial topics to measure automation bias. We selected five controversial topics (climate change, vaccination, artificial intelligence, gun control, and abortion) based on their high edit activity, public controversy, and relevance to current policy debates. For each topic, we analyzed the most recent 30-50 revisions from multiple related Wikipedia pages to capture a representative sample of recent editing activity.
+
+The research design follows a comparative approach, analyzing differences between bot and human editing patterns across multiple dimensions: edit frequency, content size changes, citation modifications, and topic coverage. This multi-dimensional analysis allows us to identify systematic bias patterns that may not be apparent when examining any single metric in isolation.
+
+\subsection{Data Collection}
+
+We use the MediaWiki Action API (\url{https://en.wikipedia.org/w/api.php}) to programmatically fetch revision histories for Wikipedia pages on controversial topics. The data collection process is implemented in our main analysis script, available at \href{https://github.com/GabeGiancarlo/EchoChamber/blob/main/src/week7.py}{github.com/GabeGiancarlo/EchoChamber/blob/main/src/week7.py}.
+
+The data collection workflow consists of the following steps:
+
+\begin{enumerate}
+\item \textbf{Page Search}: For each controversial topic, we search Wikipedia using the MediaWiki API's search endpoint to identify relevant pages. The search returns up to 5 pages per topic, prioritizing high-traffic articles that are likely to have recent editing activity.
+
+\item \textbf{Revision Fetching}: For each identified page, we fetch the last 30-50 revisions using the API's revision history endpoint. Each revision includes metadata such as revision ID, timestamp, editor username, edit flags, content size, and the full article content.
+
+\item \textbf{Data Storage}: Revision data is collected in real-time during analysis and stored in structured JSON format for further analysis. The complete data collection code includes error handling, rate limiting to respect Wikipedia's API usage policies, and data validation to ensure completeness.
+
+\end{enumerate}
+
+The complete implementation of our data collection system is available in the repository at \href{https://github.com/GabeGiancarlo/EchoChamber/tree/main/src}{github.com/GabeGiancarlo/EchoChamber/tree/main/src}, with detailed documentation in the code comments and README files.
 
 \subsection{Bot Detection Methods}
-We identify bot edits using multiple heuristics:
+
+We identify bot edits using a multi-layered heuristic approach that combines API flags, username patterns, and edit characteristics. The bot detection algorithm is implemented in the \texttt{is\_bot\_revision()} function, available at \href{https://github.com/GabeGiancarlo/EchoChamber/blob/main/src/week7.py#L92-L112}{github.com/GabeGiancarlo/EchoChamber/blob/main/src/week7.py\#L92-L112}.
+
+Our bot detection method uses three complementary approaches:
+
 \begin{itemize}
-\item API revision flags indicating bot activity
-\item Username patterns (accounts ending in "bot")
-\item Edit characteristics (size, frequency, content type)
+\item \textbf{API Flags}: We check for explicit bot flags in the revision metadata provided by the MediaWiki API. The API includes flags and tags that indicate when an edit was made by an account with bot privileges.
+
+\item \textbf{Username Heuristics}: We identify bot accounts through username patterns, checking for common indicators such as "bot", "automated", "script", or "maintenance" in the editor username. This heuristic captures bots that may not have explicit API flags but are identifiable through naming conventions.
+
+\item \textbf{Edit Characteristics}: We analyze edit characteristics such as edit size, frequency, and content type. While not definitive, systematic patterns in these characteristics can help identify automated edits that may have been missed by other methods.
+
 \end{itemize}
 
-\subsection{Bias Detection}
-We measure several types of potential bias:
+This multi-method approach provides robustness against variations in how bots are flagged or named across different Wikipedia pages. The implementation includes validation and testing to ensure accuracy, with detailed logging of bot detection decisions for manual verification.
+
+\subsection{Bias Detection and Measurement}
+
+We measure several types of potential automation bias through systematic analysis of edit patterns. The bias detection algorithms are implemented in the \texttt{detect\_bias\_patterns()} function at \href{https://github.com/GabeGiancarlo/EchoChamber/blob/main/src/week7.py#L189-L256}{github.com/GabeGiancarlo/EchoChamber/blob/main/src/week7.py\#L189-L256}.
+
+\subsubsection{Maintenance Bias}
+
+Maintenance bias refers to systematic patterns in what types of content bots edit, particularly the tendency for bots to make smaller, more frequent maintenance edits rather than substantive content changes. We measure this by comparing the average edit size (in characters) between bot and human edits. The analysis code tracks size changes for each revision and calculates mean differences between bot and human editing patterns.
+
+\subsubsection{Citation Bias}
+
+Citation bias measures differences in how bots and humans modify citations in Wikipedia articles. We track citation changes by counting \texttt{<ref} occurrences in revision content and computing differences between successive revisions. The analysis compares citation addition/removal patterns between bot and human edits to identify systematic differences that may indicate bias.
+
+The citation analysis is implemented in the \texttt{count\_citations()} and \texttt{analyze\_content\_changes()} functions, which process revision content to extract citation patterns and track changes over time.
+
+\subsubsection{Controversial Topic Bias}
+
+We measure controversial topic bias by comparing bot activity ratios across different topics, with particular attention to topics that are known to be controversial or politically charged. Higher bot activity on controversial topics may indicate systematic bias in how automated systems maintain or moderate content on sensitive subjects.
+
+The analysis identifies controversial topics through keyword matching (e.g., "controversy", "debate", "denial") and compares bot activity ratios to detect potential bias patterns.
+
+\subsubsection{Content Amplification Bias}
+
+Content amplification bias measures whether bots systematically contribute to large content additions or removals that may influence article emphasis. We track content size changes that exceed 50\% of the previous revision size and analyze whether bots or humans are responsible for these significant content modifications.
+
+\subsection{Content Analysis Pipeline}
+
+The complete content analysis pipeline processes revision data through multiple stages:
+
+\begin{enumerate}
+\item \textbf{Content Extraction}: Revision content is extracted from the API response, handling different content formats and API versions.
+
+\item \textbf{Change Detection}: For each revision, we compare content size, citation count, and other metrics to the previous revision to identify changes.
+
+\item \textbf{Pattern Analysis}: We aggregate changes by editor type (bot vs human) to identify systematic patterns.
+
+\item \textbf{Bias Calculation}: Multiple bias metrics are calculated and combined to identify potential automation bias patterns.
+
+\end{enumerate}
+
+The complete analysis pipeline is documented in the repository at \href{https://github.com/GabeGiancarlo/EchoChamber/tree/main/src}{github.com/GabeGiancarlo/EchoChamber/tree/main/src}, with the main analysis logic in \texttt{week7.py} and supporting API server code in \texttt{week7\_api.py}.
+
+\subsection{Web Interface and API}
+
+To facilitate interactive analysis and result visualization, we developed a web-based interface that provides real-time access to our analysis results. The Flask-based API server is available at \href{https://github.com/GabeGiancarlo/EchoChamber/blob/main/src/week7_api.py}{github.com/GabeGiancarlo/EchoChamber/blob/main/src/week7\_api.py} and provides JSON endpoints for querying analysis results.
+
+The web interface allows users to:
 \begin{itemize}
-\item \textbf{Maintenance Bias}: Systematic patterns in what types of content bots edit
-\item \textbf{Citation Bias}: Differences in citation addition/removal patterns
-\item \textbf{Controversial Topic Bias}: Higher bot activity on sensitive subjects
+\item Query specific topics for automation bias analysis
+\item View real-time results with bot activity ratios and bias indicators
+\item Access detailed per-page analysis with links to Wikipedia articles
+\item Explore citation patterns and content change metrics
 \end{itemize}
+
+The complete web interface code and documentation are available in the repository, including HTML templates and JavaScript for interactive visualization.
+
+\subsection{Data Validation and Quality Assurance}
+
+To ensure the reliability of our results, we implemented several validation measures:
+
+\begin{itemize}
+\item \textbf{API Response Validation}: All API responses are validated for completeness and correctness before processing.
+
+\item \textbf{Data Consistency Checks}: We verify that revision sequences are consistent and that content changes are properly tracked.
+
+\item \textbf{Manual Verification}: Sample results were manually verified by comparing our bot detection results against Wikipedia's revision history pages.
+
+\item \textbf{Result Verification Script}: A dedicated verification script (\texttt{verify\_real\_data.py}) confirms that analyzed pages exist and that results match expected patterns.
+
+\end{itemize}
+
+The validation scripts and procedures are documented in the repository, ensuring reproducibility and reliability of our analysis.
 
 \section{Results}
 
-Our analysis of 445 Wikipedia edits across controversial topics reveals significant patterns in automation bias:
+Our analysis of 445 Wikipedia edits across five controversial topics reveals significant patterns in automation bias. The complete results dataset is available in JSON format at \href{https://github.com/GabeGiancarlo/EchoChamber/blob/main/data/week7_results.json}{github.com/GabeGiancarlo/EchoChamber/blob/main/data/week7\_results.json}.
 
 \subsection{Bot Activity Distribution}
-Overall bot ratio: 15.5\% across all analyzed edits
+
+Overall, bots account for 15.5\% of recent edits across all analyzed topics. However, this ratio varies significantly by topic:
+
 \begin{itemize}
-\item Climate Change: 16.7\% bot ratio
-\item Vaccination: 22.2\% bot ratio  
-\item Artificial Intelligence: 14.4\% bot ratio
-\item Gun Control: 14.1\% bot ratio
-\item Abortion: 10.0\% bot ratio
+\item \textbf{Climate Change}: 16.7\% bot ratio (15 bot edits out of 90 total edits across 3 pages)
+\item \textbf{Vaccination}: 22.2\% bot ratio (20 bot edits out of 90 total edits across 3 pages)
+\item \textbf{Artificial Intelligence}: 14.4\% bot ratio (13 bot edits out of 90 total edits across 3 pages)
+\item \textbf{Gun Control}: 14.1\% bot ratio (12 bot edits out of 85 total edits across 3 pages)
+\item \textbf{Abortion}: 10.0\% bot ratio (9 bot edits out of 90 total edits across 3 pages)
 \end{itemize}
 
+The variation in bot activity across topics suggests that automation is not uniformly applied, with some controversial topics receiving significantly more automated maintenance than others. The vaccination topic shows the highest overall bot ratio, which may reflect increased maintenance activity related to ongoing public health debates.
+
+\subsection{Page-Level Analysis}
+
+At the page level, we observed substantial variation in bot activity. For example, within the vaccination topic, the "Vaccine hesitancy" page showed a 36.7\% bot ratio (11 bot edits out of 30 revisions), while the "Anti-vaccine activism" page showed only 6.7\% bot ratio (2 bot edits out of 30 revisions). This variation within the same topic category suggests that bot activity may be influenced by specific page characteristics such as edit frequency, controversy level, or maintenance needs.
+
 \subsection{Bias Patterns Identified}
-\begin{itemize}
-\item \textbf{Content Type Bias}: Bots make smaller edits on average (14-176 chars vs 186-1124 chars for humans)
-\item \textbf{Citation Bias}: Different citation patterns between bots and humans
-\item \textbf{Topic Coverage Bias}: Higher bot activity on controversial topics (vaccination hesitancy: 36.7\% bot ratio)
-\end{itemize}
+
+Our analysis identified several distinct bias patterns:
+
+\subsubsection{Content Type Bias (Maintenance Bias)}
+
+Bots consistently make smaller edits on average compared to human editors. Across all topics, bot edits averaged 14-176 characters in size, while human edits averaged 186-1124 characters. This pattern indicates that bots primarily perform maintenance tasks such as fixing links, updating templates, or making minor formatting changes, rather than adding substantive content.
+
+This maintenance bias creates a systematic difference in what types of content changes are made by automated systems versus humans, potentially influencing which aspects of articles receive more attention or maintenance.
+
+\subsubsection{Citation Bias}
+
+We observed different citation patterns between bots and humans. On pages with sufficient citation activity, bots showed different average citation deltas compared to human editors. For example, on the "Artificial general intelligence" page, bots showed an average citation delta of -1.0 (removing citations), while humans showed an average delta of 0.0 (maintaining citation counts).
+
+This difference suggests that bots may be systematically removing or modifying citations in ways that differ from human editing patterns, potentially influencing which sources are retained or emphasized in articles.
+
+\subsubsection{Controversial Topic Bias}
+
+We found higher bot activity on pages explicitly related to controversial subtopics. The "Vaccine hesitancy" page showed 36.7\% bot activity, significantly higher than the overall topic average. Similarly, the "Climate change denial" page showed 20\% bot activity, higher than the main "Climate change" page (6.7\%).
+
+This pattern suggests that controversial or disputed topics may receive more automated maintenance attention, potentially as a response to higher edit activity or content disputes. However, this increased automation could also amplify certain viewpoints through repeated automated enforcement.
+
+\subsubsection{Content Amplification Bias}
+
+In some cases, bots were responsible for significant content amplifications (large content additions). For example, on the "Artificial general intelligence" page, bots were responsible for 100\% of content amplifications (1 out of 1 amplification events), where amplification is defined as content size increases exceeding 50\% of the previous revision.
+
+While this represents a small number of events, it suggests that bots can contribute to substantial content changes, not just maintenance tasks, which could influence article emphasis and coverage.
+
+\subsection{Statistical Significance}
+
+While our sample size (445 edits across 15 pages) provides initial insights into automation bias patterns, larger-scale analysis would be needed to establish statistical significance for all observed differences. However, the consistent patterns observed across multiple topics and pages suggest that automation bias is a measurable phenomenon that warrants further investigation.
 
 \section{Discussion}
 
-The data demonstrates that automation does influence what knowledge gets emphasized, repeated, or omitted on Wikipedia. Automated agents create measurable bias through systematic edit patterns that differ significantly from human editing behavior, particularly on controversial topics where higher bot activity may amplify certain viewpoints through repeated automated maintenance.
+\subsection{Implications of Automation Bias}
+
+Our findings demonstrate that automation does influence what knowledge gets emphasized, repeated, or omitted on Wikipedia. The systematic differences between bot and human editing patterns reveal several important implications:
+
+\subsubsection{Maintenance Amplification}
+
+The consistent pattern of bots making smaller, more frequent edits creates a measurable bias toward certain types of content changes over time. While individual bot edits may be neutral and well-intentioned, the cumulative effect of automated maintenance can influence article emphasis and coverage. Articles with higher bot activity may receive more frequent maintenance attention, potentially creating systematic differences in content quality or freshness across topics.
+
+\subsubsection{Citation Patterns and Source Representation}
+
+The observed differences in citation patterns between bots and humans raise questions about how automated maintenance may influence source representation in Wikipedia articles. If bots systematically remove or modify citations in ways that differ from human patterns, this could affect which sources are retained or emphasized, potentially influencing article neutrality and source diversity.
+
+\subsubsection{Controversial Topic Bias}
+
+The higher bot activity on controversial topics suggests that automation may be responding to increased edit activity or content disputes. However, this increased automation could also amplify certain viewpoints through repeated automated enforcement of certain policies or standards. The 36.7\% bot ratio on "Vaccine hesitancy" pages is particularly notable, as it suggests that controversial health topics may receive disproportionate automated attention.
+
+\subsection{Limitations}
+
+Our study has several limitations that should be considered when interpreting the results:
+
+\begin{itemize}
+\item \textbf{Sample Size}: We analyzed 445 edits across 15 pages, which provides initial insights but may not be representative of all Wikipedia content. Larger-scale analysis would strengthen the generalizability of our findings.
+
+\item \textbf{Bot Detection Accuracy}: Our heuristic-based bot detection method may miss some bots or misclassify some human edits. While we use multiple detection methods to improve accuracy, manual verification of all results was not feasible.
+
+\item \textbf{Time Window}: We analyzed only recent revisions (last 30-50 per page), which captures current patterns but may not reflect historical trends or long-term bias patterns.
+
+\item \textbf{Topic Selection}: Our focus on controversial topics may limit generalizability to less controversial content areas where bot activity patterns may differ.
+
+\end{itemize}
+
+\subsection{Future Work}
+
+Future research could expand on our findings in several directions:
+
+\begin{itemize}
+\item \textbf{Large-Scale Analysis}: Analyzing a much larger sample of Wikipedia edits across more topics and time periods would provide stronger statistical evidence for automation bias patterns.
+
+\item \textbf{AI-Generated Content Detection}: Extending the analysis to specifically detect and analyze AI-generated content, as distinct from traditional bot edits, would provide insights into how generative AI tools influence Wikipedia content.
+
+\item \textbf{Longitudinal Analysis}: Tracking bias patterns over time would reveal how automation bias evolves and whether certain patterns are temporary or persistent.
+
+\item \textbf{Source Domain Analysis}: Analyzing which source domains are added or removed by bots versus humans could provide insights into citation bias and source representation.
+
+\item \textbf{Intervention Studies}: Developing and testing tools to help human reviewers identify and address automation bias could provide practical solutions for mitigating bias in Wikipedia content.
+
+\end{itemize}
 
 \section{Conclusion}
 
-This research provides evidence that automation bias exists in Wikipedia and can be measured through systematic analysis of edit patterns. The findings have implications for understanding how automated systems influence knowledge representation and suggest the need for tools to help human reviewers identify and address potential bias in automated content.
+This research provides evidence that automation bias exists in Wikipedia and can be measured through systematic analysis of edit patterns. Our analysis of 445 edits across controversial topics reveals that bots account for 15.5\% of recent edits, with significant variation across topics and pages. We identified several measurable bias patterns including maintenance bias, citation bias, and controversial topic bias that demonstrate how automation influences knowledge representation.
+
+The findings have important implications for understanding how automated systems influence knowledge platforms. As Wikipedia and similar platforms increasingly rely on automation for content maintenance and quality assurance, it is critical to understand how these automated systems may introduce systematic biases that affect what knowledge gets emphasized, repeated, or omitted.
+
+Our work also demonstrates the feasibility of developing tooling to surface automation bias for human reviewers. The web-based interface and API we developed provide a foundation for tools that could help Wikipedia editors and administrators identify and address potential automation bias in articles.
+
+As AI-generated content becomes more prevalent in knowledge platforms, the need for robust bias detection and mitigation strategies will only increase. Our research contributes to this effort by providing methods and tools for measuring and understanding automation bias in Wikipedia and similar collaborative knowledge platforms.
 
 \bibliographystyle{plain}
 \bibliography{references}
