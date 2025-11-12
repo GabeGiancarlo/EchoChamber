@@ -13,18 +13,30 @@
 
 **Files**
 - `README.md` — this file (complete project documentation)
-- `literature-review.md` — literature review and annotated bibliography
-- `test_wikipedia_api.py` — Flask app + script demonstrating MediaWiki queries and basic analytics
 - `requirements.txt` — Python dependencies
-- `static/index.html` — simple live dashboard that consumes the Flask API
-- `week7/` — Week 7 automation bias analysis files
-  - `week7.py` — main analysis script
+- `src/` — analysis scripts and code
+  - `test_wikipedia_api.py` — Flask app + script demonstrating MediaWiki queries and basic analytics
+  - `week7.py` — main Week 7 automation bias analysis script
   - `week7_api.py` — Flask API server for web interface
-  - `week7.html` — interactive web interface
-  - `start_week7.sh` — easy startup script
   - `verify_real_data.py` — verification script
+  - `start_week7.sh` — easy startup script
+  - `static/index.html` — simple live dashboard that consumes the Flask API
+- `web/` — web interface files
+  - `index.html` — main dashboard
+  - `week7.html` — interactive web interface for Week 7 analysis
   - `test_api.html` — API testing page
+- `data/` — datasets and data files
   - `week7_results.json` — analysis results (generated)
+- `paper/` — LaTeX research paper files
+  - `main.tex` — main LaTeX document
+  - `references.bib` — bibliography database
+  - `main.pdf` — compiled paper
+  - `compile.sh` — compilation script
+  - `README.md` — compilation instructions
+- `literature/` — literature review files
+  - `literature-review.md` — literature review and annotated bibliography
+- `prompts/` — AI agent workflows
+  - `literature-review.prompt.md` — AI workflow for literature review
 
 **Citations / background**
 - MediaWiki provides an Action API for queries and revisions; the API exposes revision metadata and revision flags that can indicate bot-marked edits.
@@ -65,7 +77,7 @@ Wikipedia relies on a mixed ecosystem of human editors and automated tools (bots
 
 ---
 
-## Program: `test_wikipedia_api.py` (brief description)
+## Program: `src/test_wikipedia_api.py` (brief description)
 
 This program starts a small Flask web server exposing a JSON API that:
 
@@ -75,7 +87,7 @@ This program starts a small Flask web server exposing a JSON API that:
   - `bot_edits_count` and `bot_edit_percent`
   - `anonymous_edits_count`
   - `citation_deltas` — list of (rev_id, timestamp, citation_count_delta) where citations were added/removed
-- Serves a static `index.html` (dashboard) that fetches `/api/summary` and updates the page live.
+- Serves a static `src/static/index.html` (dashboard) that fetches `/api/summary` and updates the page live.
 
 How it relates to the research question: the program surfaces who (bot vs human) is editing target pages and whether edits are changing citation counts — a starting point for evaluating whether automation changes citation enforcement or introduces suspect content.
 
@@ -96,13 +108,19 @@ pip install -r requirements.txt
 `requirements.txt` includes:
 
 ```
-Flask
-requests
+Flask>=2.0
+requests>=2.28
+```
+
+Note: For Week 7 analysis, you'll also need `flask-cors`:
+```bash
+pip install flask-cors
 ```
 
 3. Start the demo server:
 
 ```bash
+cd src
 python test_wikipedia_api.py
 ```
 
@@ -142,7 +160,7 @@ curl 'http://localhost:5000/api/summary?query=AI-generated+content+Wikipedia&pag
 - Identify bias indicators including high bot ratios, maintenance bias, and controversial topic bias
 - Compare edit patterns across topics to reveal automation's impact on knowledge representation
 
-### Implementation: `week7.py` Script
+### Implementation: `src/week7.py` Script
 The script analyzes real Wikipedia articles to detect automation bias patterns:
 
 **Core Features:**
@@ -152,39 +170,42 @@ The script analyzes real Wikipedia articles to detect automation bias patterns:
 - Tracks citation additions/removals and content volume changes
 - Identifies bias patterns: high bot ratios, maintenance bias, citation bias, controversial topic bias
 - Generates comprehensive reports with real Wikipedia URLs for verification
+- Saves results to `data/week7_results.json`
 
 **Additional Tools:**
-- `week7_api.py` - Flask API server for web interface
-- `week7.html` - Interactive web interface for real-time analysis
-- `start_week7.sh` - Easy startup script
+- `src/week7_api.py` - Flask API server for web interface
+- `web/week7.html` - Interactive web interface for real-time analysis
+- `src/start_week7.sh` - Easy startup script
+- `src/verify_real_data.py` - Verification script for data validation
 
 ### How to Run the Program
 
 **Option 1: Command Line Analysis**
 ```bash
-cd week7/
+cd src
 source ../venv/bin/activate
 python week7.py
 ```
 
 **Option 2: Interactive Web Interface**
 ```bash
-cd week7/
+cd src
 source ../venv/bin/activate
 python week7_api.py &
+cd ../web
 open week7.html
 ```
 
 **Option 3: Easy Startup**
 ```bash
-cd week7/
+cd src
 ./start_week7.sh
 ```
 
 **Dependencies:**
 ```bash
 pip install -r requirements.txt
-pip install flask-cors
+pip install flask-cors  # Required for week7_api.py
 ```
 
 ### Results Obtained
@@ -233,7 +254,7 @@ The analysis reveals how automated agents create measurable bias in knowledge re
 
 ## Literature review link
 
-* See `literature-review.md` for initial article list and short summaries.
+* See `literature/literature-review.md` for initial article list and short summaries.
 
 Citations used above (key sources):
 - MediaWiki API: Revisions & RecentChanges docs (used for querying revisions and flags).
