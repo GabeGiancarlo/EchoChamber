@@ -18,6 +18,46 @@ from datetime import datetime, timedelta
 from collections import defaultdict, Counter
 from urllib.parse import quote
 
+# Pre-compile regex patterns for performance optimization
+BIAS_PATTERNS = {
+    "loaded_language": [re.compile(p, re.IGNORECASE) for p in [
+        r'\b(clearly|obviously|undoubtedly|certainly|definitely|undeniably)\b',
+        r'\b(should|must|ought to|need to)\s+(always|never|only)',
+        r'\b(terrible|awful|horrible|disastrous|catastrophic)\b',
+        r'\b(amazing|incredible|fantastic|brilliant|perfect)\b',
+        r'\b(controversial|disputed|questionable|dubious)\b',
+    ]],
+    "opinionated": [re.compile(p, re.IGNORECASE) for p in [
+        r'\b(I|we|our|us)\s+(believe|think|feel|argue|claim|assert)\b',
+        r'\b(many|most|some)\s+(people|experts|scientists)\s+(believe|think|argue)\b',
+        r'\b(it is|it\'s)\s+(widely|commonly|generally)\s+(believed|thought|accepted)\b',
+    ]],
+    "unbalanced": [re.compile(p, re.IGNORECASE) for p in [
+        r'\b(only|merely|just|simply)\s+(because|due to|as a result of)',
+        r'\b(without|lacking|missing)\s+(any|adequate|sufficient|proper)\s+(evidence|proof|support)',
+        r'\b(completely|totally|entirely)\s+(wrong|incorrect|false|untrue)',
+    ]],
+    "political": [re.compile(p, re.IGNORECASE) for p in [
+        r'\b(left-wing|right-wing|liberal|conservative|progressive|reactionary)\b',
+        r'\b(radical|extremist|fringe|mainstream)\s+(view|position|stance)',
+        r'\b(propaganda|agenda|ideology|doctrine)\b',
+    ]]
+}
+
+NEUTRALITY_PATTERNS = {
+    "strong_claims": re.compile(r'\b(proves|demonstrates|shows|indicates)\s+\w+', re.IGNORECASE),
+    "counterpoints": re.compile(r'\b(however|although|though|while|some|critics|opponents|but|alternatively|conversely|on the other hand|nevertheless|yet)\b', re.IGNORECASE),
+    "loaded_terms": re.compile(r'\b(clearly|obviously|undoubtedly|certainly|definitely)\b', re.IGNORECASE),
+    "pov_indicators": re.compile(r'\b(we|our|us|I)\s+(believe|think|feel|argue|claim)\b', re.IGNORECASE),
+    "one_sided": [re.compile(p, re.IGNORECASE) for p in [
+        r'\b(always|never|all|every|none|no one)\s+(agrees|supports|believes)',
+        r'\b(universally|widely|generally)\s+(accepted|agreed|recognized)\s+(without|with no)',
+        r'\b(no|little|minimal)\s+(evidence|support|proof)\s+(for|against)',
+    ]]
+}
+
+CITATION_PATTERN = re.compile(r'<ref[^>]*>', re.IGNORECASE)
+
 # Configuration
 WIKIPEDIA_API = "https://en.wikipedia.org/w/api.php"
 USER_AGENT = "EchoChamberWeek7/1.0 (research-project) https://github.com/your-repo"
@@ -113,17 +153,21 @@ def is_bot_revision(rev):
 
 
 def analyze_content_changes(revs):
-    """Analyze content changes to detect bias patterns."""
+    """Analyze content changes to detect bias patterns, including bias phrases and neutrality."""
     content_analysis = {
         "size_changes": [],
         "citation_changes": [],
         "edit_frequency": defaultdict(int),
         "content_amplification": [],
-        "bias_indicators": []
+        "bias_indicators": [],
+        "bias_phrase_analysis": [],
+        "neutrality_analysis": []
     }
     
     prev_size = None
     prev_citations = None
+    prev_bias_count = None
+    prev_neutrality_score = None
     
     for i, rev in enumerate(revs):
         # Get revision content
@@ -157,6 +201,41 @@ def analyze_content_changes(revs):
                 "user": rev.get("user", "Unknown")
             })
         
+        # Detect biased phrases (NEW)
+        bias_analysis = detect_biased_phrases(rev_content)
+        current_bias_count = bias_analysis["bias_count"]
+        if prev_bias_count is not None:
+            bias_delta = current_bias_count - prev_bias_count
+            content_analysis["bias_phrase_analysis"].append({
+                "rev_id": rev.get("revid"),
+                "timestamp": rev.get("timestamp"),
+                "bias_count": current_bias_count,
+                "bias_score": bias_analysis["bias_score"],
+                "bias_delta": bias_delta,
+                "is_bot": is_bot_revision(rev),
+                "user": rev.get("user", "Unknown"),
+                "biased_phrases": bias_analysis["biased_phrases"][:3]  # Store top 3 examples
+            })
+        prev_bias_count = current_bias_count
+        
+        # Analyze neutrality alignment (NEW)
+        neutrality_analysis = analyze_neutrality_alignment(rev_content)
+        current_neutrality_score = neutrality_analysis["neutrality_score"]
+        if prev_neutrality_score is not None:
+            neutrality_delta = current_neutrality_score - prev_neutrality_score
+            content_analysis["neutrality_analysis"].append({
+                "rev_id": rev.get("revid"),
+                "timestamp": rev.get("timestamp"),
+                "neutrality_score": current_neutrality_score,
+                "neutrality_delta": neutrality_delta,
+                "compliance": neutrality_analysis["compliance"],
+                "violation_count": neutrality_analysis["violation_count"],
+                "is_bot": is_bot_revision(rev),
+                "user": rev.get("user", "Unknown"),
+                "violations": neutrality_analysis["violations"][:2]  # Store top 2 violations
+            })
+        prev_neutrality_score = current_neutrality_score
+        
         # Track edit frequency by user type
         user_type = "bot" if is_bot_revision(rev) else "human"
         content_analysis["edit_frequency"][user_type] += 1
@@ -181,9 +260,177 @@ def count_citations(text):
     """Count citations in text."""
     if not text:
         return 0
-    # Count <ref> tags and other citation patterns
-    ref_count = len(re.findall(r'<ref[^>]*>', text, re.IGNORECASE))
+    # Count <ref> tags and other citation patterns (using pre-compiled pattern)
+    ref_count = len(CITATION_PATTERN.findall(text))
     return ref_count
+
+
+def detect_biased_phrases(text):
+    """
+    Detect biased phrases in text using pattern matching and keyword analysis.
+    Based on concepts from Abdullah et al. (2025) and Wiki Neutrality Corpus.
+    """
+    if not text:
+        return {"bias_score": 0, "biased_phrases": [], "bias_count": 0}
+    
+    # Loaded language patterns (opinionated, emotional, or unbalanced)
+    loaded_language_patterns = [
+        r'\b(clearly|obviously|undoubtedly|certainly|definitely|undeniably)\b',
+        r'\b(should|must|ought to|need to)\s+(always|never|only)',
+        r'\b(terrible|awful|horrible|disastrous|catastrophic)\b',
+        r'\b(amazing|incredible|fantastic|brilliant|perfect)\b',
+        r'\b(controversial|disputed|questionable|dubious)\b',
+    ]
+    
+    # Opinionated statements
+    opinion_patterns = [
+        r'\b(I|we|our|us)\s+(believe|think|feel|argue|claim|assert)\b',
+        r'\b(many|most|some)\s+(people|experts|scientists)\s+(believe|think|argue)\b',
+        r'\b(it is|it\'s)\s+(widely|commonly|generally)\s+(believed|thought|accepted)\b',
+    ]
+    
+    # Unbalanced perspective indicators
+    unbalanced_patterns = [
+        r'\b(only|merely|just|simply)\s+(because|due to|as a result of)',
+        r'\b(without|lacking|missing)\s+(any|adequate|sufficient|proper)\s+(evidence|proof|support)',
+        r'\b(completely|totally|entirely)\s+(wrong|incorrect|false|untrue)',
+    ]
+    
+    # Political/ideological language
+    political_patterns = [
+        r'\b(left-wing|right-wing|liberal|conservative|progressive|reactionary)\b',
+        r'\b(radical|extremist|fringe|mainstream)\s+(view|position|stance)',
+        r'\b(propaganda|agenda|ideology|doctrine)\b',
+    ]
+    
+    biased_phrases = []
+    bias_count = 0
+    
+    # Check each category (using pre-compiled patterns)
+    for category, patterns in BIAS_PATTERNS.items():
+        for pattern in patterns:
+            matches = pattern.finditer(text)
+            for match in matches:
+                # Extract context around the match (50 chars before and after)
+                start = max(0, match.start() - 50)
+                end = min(len(text), match.end() + 50)
+                context = text[start:end]
+                biased_phrases.append({
+                    "category": category,
+                    "phrase": match.group(),
+                    "context": context.strip()
+                })
+                bias_count += 1
+    
+    # Calculate bias score (normalized by text length)
+    text_length = len(text)
+    bias_score = (bias_count / max(text_length / 1000, 1)) if text_length > 0 else 0
+    
+    return {
+        "bias_score": bias_score,
+        "biased_phrases": biased_phrases[:10],  # Limit to top 10
+        "bias_count": bias_count
+    }
+
+
+def analyze_neutrality_alignment(text):
+    """
+    Analyze how well text aligns with Wikipedia's Neutral Point of View (NPOV) policy.
+    Based on concepts from Ashkinaze et al. (2024).
+    """
+    if not text:
+        return {"neutrality_score": 1.0, "violations": [], "compliance": "good"}
+    
+    violations = []
+    violation_count = 0
+    
+    # Check for missing counterpoints (using pre-compiled patterns)
+    strong_claims = len(NEUTRALITY_PATTERNS["strong_claims"].findall(text))
+    counterpoint_indicators = len(NEUTRALITY_PATTERNS["counterpoints"].findall(text))
+    
+    # More sensitive detection: if we have multiple strong claims and few/no counterpoints
+    if strong_claims >= 3:
+        if counterpoint_indicators == 0:
+            violations.append({
+                "type": "missing_counterpoints",
+                "description": f"Text contains {strong_claims} strong claims but no counterpoint indicators",
+                "severity": "medium"
+            })
+            violation_count += 1
+        elif counterpoint_indicators < strong_claims * 0.3:
+            violations.append({
+                "type": "missing_counterpoints",
+                "description": f"Text contains {strong_claims} strong claims but only {counterpoint_indicators} counterpoint indicators",
+                "severity": "medium"
+            })
+            violation_count += 1
+    
+    # Also check for one-sided indicators directly (using pre-compiled patterns)
+    for pattern in NEUTRALITY_PATTERNS["one_sided"]:
+        if pattern.search(text):
+            violations.append({
+                "type": "one_sided_argument",
+                "description": f"Text contains one-sided argument indicators",
+                "severity": "medium"
+            })
+            violation_count += 1
+            break  # Only count once
+    
+    # Check for loaded language (using pre-compiled pattern)
+    loaded_terms = len(NEUTRALITY_PATTERNS["loaded_terms"].findall(text))
+    if loaded_terms > 3:
+        violations.append({
+            "type": "excessive_loaded_language",
+            "description": f"Text contains {loaded_terms} instances of loaded language",
+            "severity": "low"
+        })
+        violation_count += 1
+    elif loaded_terms > 1 and len(text) < 200:  # More strict for short texts
+        violations.append({
+            "type": "excessive_loaded_language",
+            "description": f"Text contains {loaded_terms} instances of loaded language in short text",
+            "severity": "low"
+        })
+        violation_count += 1
+    
+    # Check for POV (Point of View) violations (using pre-compiled pattern)
+    pov_indicators = len(NEUTRALITY_PATTERNS["pov_indicators"].findall(text))
+    if pov_indicators > 0:
+        violations.append({
+            "type": "first_person_pov",
+            "description": f"Text contains {pov_indicators} first-person statements",
+            "severity": "high"
+        })
+        violation_count += 1
+    
+    # Calculate neutrality score (0-1, where 1 is most neutral)
+    # Base score starts at 1.0, reduced by violations
+    # High severity violations reduce score more
+    score_reduction = 0
+    for violation in violations:
+        if violation.get("severity") == "high":
+            score_reduction += 0.25
+        elif violation.get("severity") == "medium":
+            score_reduction += 0.15
+        else:
+            score_reduction += 0.10
+    
+    neutrality_score = max(0.0, 1.0 - score_reduction)
+    
+    # Determine compliance level (stricter thresholds)
+    if neutrality_score >= 0.85:
+        compliance = "good"
+    elif neutrality_score >= 0.65:
+        compliance = "moderate"
+    else:
+        compliance = "poor"
+    
+    return {
+        "neutrality_score": neutrality_score,
+        "violations": violations,
+        "compliance": compliance,
+        "violation_count": violation_count
+    }
 
 
 def detect_bias_patterns(content_analysis, page_title):
@@ -253,6 +500,77 @@ def detect_bias_patterns(content_analysis, page_title):
                 "severity": "medium"
             })
     
+    # NEW: Check for biased language patterns (from Abdullah et al. 2025)
+    bot_bias_analysis = [b for b in content_analysis.get("bias_phrase_analysis", []) if b.get("is_bot")]
+    human_bias_analysis = [b for b in content_analysis.get("bias_phrase_analysis", []) if not b.get("is_bot")]
+    
+    if bot_bias_analysis and human_bias_analysis:
+        bot_avg_bias_score = sum(b.get("bias_score", 0) for b in bot_bias_analysis) / len(bot_bias_analysis)
+        human_avg_bias_score = sum(b.get("bias_score", 0) for b in human_bias_analysis) / len(human_bias_analysis)
+        
+        # Check if bots introduce more or less biased language
+        if bot_avg_bias_score > human_avg_bias_score * 1.2:
+            bias_indicators.append({
+                "type": "biased_language_bias",
+                "description": f"Bots introduce more biased language (bot: {bot_avg_bias_score:.2f}, human: {human_avg_bias_score:.2f} bias score)",
+                "severity": "medium" if bot_avg_bias_score > human_avg_bias_score * 1.5 else "low"
+            })
+        elif human_avg_bias_score > bot_avg_bias_score * 1.2:
+            # Humans introducing more bias could indicate bots are correcting it
+            bias_indicators.append({
+                "type": "biased_language_correction",
+                "description": f"Humans introduce more biased language than bots (human: {human_avg_bias_score:.2f}, bot: {bot_avg_bias_score:.2f} bias score)",
+                "severity": "low"
+            })
+    
+    # NEW: Check for neutrality alignment differences (from Ashkinaze et al. 2024)
+    bot_neutrality = [n for n in content_analysis.get("neutrality_analysis", []) if n.get("is_bot")]
+    human_neutrality = [n for n in content_analysis.get("neutrality_analysis", []) if not n.get("is_bot")]
+    
+    if bot_neutrality and human_neutrality:
+        bot_avg_neutrality = sum(n.get("neutrality_score", 1.0) for n in bot_neutrality) / len(bot_neutrality)
+        human_avg_neutrality = sum(n.get("neutrality_score", 1.0) for n in human_neutrality) / len(human_neutrality)
+        
+        # Check for significant differences in neutrality compliance
+        neutrality_diff = abs(bot_avg_neutrality - human_avg_neutrality)
+        if neutrality_diff > 0.15:  # Significant difference
+            if bot_avg_neutrality < human_avg_neutrality:
+                bias_indicators.append({
+                    "type": "neutrality_bias",
+                    "description": f"Bots show lower neutrality compliance (bot: {bot_avg_neutrality:.2f}, human: {human_avg_neutrality:.2f})",
+                    "severity": "high" if neutrality_diff > 0.25 else "medium"
+                })
+            else:
+                bias_indicators.append({
+                    "type": "neutrality_correction",
+                    "description": f"Bots show higher neutrality compliance (bot: {bot_avg_neutrality:.2f}, human: {human_avg_neutrality:.2f})",
+                    "severity": "low"
+                })
+        
+        # Check for neutrality violations
+        bot_violations = sum(n.get("violation_count", 0) for n in bot_neutrality)
+        human_violations = sum(n.get("violation_count", 0) for n in human_neutrality)
+        
+        if bot_violations > 0 or human_violations > 0:
+            total_violations = bot_violations + human_violations
+            if bot_violations > total_violations * 0.6:
+                bias_indicators.append({
+                    "type": "neutrality_violation_bias",
+                    "description": f"Bots responsible for {bot_violations}/{total_violations} neutrality violations",
+                    "severity": "medium" if bot_violations > total_violations * 0.8 else "low"
+                })
+    
+    # NEW: Check for perception bias risk (from Schweitzer et al. 2024)
+    # Flag highly polarized topics that may be subject to perception biases
+    high_polarization_keywords = ["gun control", "abortion", "immigration", "vaccination", "climate change"]
+    if any(keyword in page_title.lower() for keyword in high_polarization_keywords):
+        if bot_ratio > 0.15:
+            bias_indicators.append({
+                "type": "perception_bias_risk",
+                "description": f"High bot activity ({bot_ratio:.1%}) on polarized topic - may be subject to perception biases",
+                "severity": "low"
+            })
+    
     return bias_indicators
 
 
@@ -299,6 +617,17 @@ def analyze_topic_bias(topic, pages_to_analyze=3, revisions_per_page=30):
             # Create Wikipedia page URL
             page_url = f"https://en.wikipedia.org/wiki/{title.replace(' ', '_')}"
             
+            # Calculate enhanced metrics
+            bot_bias_analysis = [b for b in content_analysis.get("bias_phrase_analysis", []) if b.get("is_bot")]
+            human_bias_analysis = [b for b in content_analysis.get("bias_phrase_analysis", []) if not b.get("is_bot")]
+            bot_neutrality = [n for n in content_analysis.get("neutrality_analysis", []) if n.get("is_bot")]
+            human_neutrality = [n for n in content_analysis.get("neutrality_analysis", []) if not n.get("is_bot")]
+            
+            avg_bot_bias_score = sum(b.get("bias_score", 0) for b in bot_bias_analysis) / len(bot_bias_analysis) if bot_bias_analysis else 0
+            avg_human_bias_score = sum(b.get("bias_score", 0) for b in human_bias_analysis) / len(human_bias_analysis) if human_bias_analysis else 0
+            avg_bot_neutrality = sum(n.get("neutrality_score", 1.0) for n in bot_neutrality) / len(bot_neutrality) if bot_neutrality else 1.0
+            avg_human_neutrality = sum(n.get("neutrality_score", 1.0) for n in human_neutrality) / len(human_neutrality) if human_neutrality else 1.0
+            
             page_result = {
                 "title": title,
                 "pageid": pageid,
@@ -310,7 +639,17 @@ def analyze_topic_bias(topic, pages_to_analyze=3, revisions_per_page=30):
                 "content_analysis": {
                     "size_changes_count": len(content_analysis["size_changes"]),
                     "citation_changes_count": len(content_analysis["citation_changes"]),
-                    "amplification_count": len(content_analysis["content_amplification"])
+                    "amplification_count": len(content_analysis["content_amplification"]),
+                    "bias_phrase_analysis_count": len(content_analysis.get("bias_phrase_analysis", [])),
+                    "neutrality_analysis_count": len(content_analysis.get("neutrality_analysis", []))
+                },
+                "enhanced_metrics": {
+                    "avg_bot_bias_score": avg_bot_bias_score,
+                    "avg_human_bias_score": avg_human_bias_score,
+                    "avg_bot_neutrality": avg_bot_neutrality,
+                    "avg_human_neutrality": avg_human_neutrality,
+                    "bias_score_difference": avg_bot_bias_score - avg_human_bias_score,
+                    "neutrality_score_difference": avg_bot_neutrality - avg_human_neutrality
                 }
             }
             
@@ -322,6 +661,10 @@ def analyze_topic_bias(topic, pages_to_analyze=3, revisions_per_page=30):
             topic_analysis["bias_indicators"].extend(bias_indicators)
             
             print(f"    ✅ {total_edits} edits, {bot_edits} bot edits ({bot_ratio:.1%}), {len(bias_indicators)} bias indicators")
+            if bot_bias_analysis or human_bias_analysis:
+                print(f"       📊 Bias scores: bot={avg_bot_bias_score:.2f}, human={avg_human_bias_score:.2f}")
+            if bot_neutrality or human_neutrality:
+                print(f"       ⚖️  Neutrality: bot={avg_bot_neutrality:.2f}, human={avg_human_neutrality:.2f}")
             print(f"       🔗 {page_url}")
             
         except Exception as e:
@@ -367,10 +710,46 @@ def generate_bias_report(analyses):
         print(f"   Bias severity: {analysis.get('bias_severity', 'unknown')}")
         print(f"   Bias indicators: {len(analysis['bias_indicators'])}")
         
+        # Calculate enhanced metrics for topic
+        all_bias_scores = []
+        all_neutrality_scores = []
+        for page in analysis.get('page_results', []):
+            enhanced = page.get('enhanced_metrics', {})
+            if enhanced.get('avg_bot_bias_score', 0) > 0:
+                all_bias_scores.append(enhanced.get('avg_bot_bias_score', 0))
+            if enhanced.get('avg_human_bias_score', 0) > 0:
+                all_bias_scores.append(enhanced.get('avg_human_bias_score', 0))
+            if enhanced.get('avg_bot_neutrality', 1.0) < 1.0:
+                all_neutrality_scores.append(enhanced.get('avg_bot_neutrality', 1.0))
+            if enhanced.get('avg_human_neutrality', 1.0) < 1.0:
+                all_neutrality_scores.append(enhanced.get('avg_human_neutrality', 1.0))
+        
+        if all_bias_scores:
+            avg_bias = sum(all_bias_scores) / len(all_bias_scores)
+            print(f"   📊 Average bias score: {avg_bias:.2f}")
+        if all_neutrality_scores:
+            avg_neutrality = sum(all_neutrality_scores) / len(all_neutrality_scores)
+            print(f"   ⚖️  Average neutrality score: {avg_neutrality:.2f}")
+        
         if analysis['bias_indicators']:
             print("   🚨 Key bias patterns:")
-            for indicator in analysis['bias_indicators'][:3]:  # Show top 3
-                print(f"      • {indicator['description']}")
+            # Group by type and show most important
+            bias_types = {}
+            for indicator in analysis['bias_indicators']:
+                bias_type = indicator.get('type', 'unknown')
+                if bias_type not in bias_types:
+                    bias_types[bias_type] = []
+                bias_types[bias_type].append(indicator)
+            
+            # Show top 3 most common or highest severity
+            shown = 0
+            for bias_type, indicators in sorted(bias_types.items(), key=lambda x: len(x[1]), reverse=True):
+                if shown >= 3:
+                    break
+                severity_order = {'high': 3, 'medium': 2, 'low': 1}
+                top_indicator = max(indicators, key=lambda x: severity_order.get(x.get('severity', 'low'), 0))
+                print(f"      • [{bias_type}] {top_indicator['description']}")
+                shown += 1
         
         # Show page links for this topic
         print(f"   📄 Pages analyzed:")
@@ -389,6 +768,9 @@ def generate_bias_report(analyses):
     print(f"   • Bot edit patterns differ significantly from human patterns")
     print(f"   • Certain topics are more susceptible to automation bias")
     print(f"   • Citation and content patterns reveal systematic biases")
+    print(f"   • NEW: Bias phrase detection reveals language-level automation bias")
+    print(f"   • NEW: Neutrality analysis shows NPOV compliance differences")
+    print(f"   • NEW: Enhanced metrics provide multi-dimensional bias assessment")
 
 
 def main():
@@ -397,11 +779,16 @@ def main():
     print("Analyzing how automated agents influence knowledge representation on Wikipedia")
     print("-" * 80)
     
-    # Analyze controversial topics
+    # Analyze controversial topics with enhanced data collection
     analyses = []
-    for topic in CONTROVERSIAL_TOPICS[:5]:  # Analyze top 5 topics
-        analysis = analyze_topic_bias(topic, pages_to_analyze=3, revisions_per_page=30)
+    # Analyze all topics with more pages and revisions for comprehensive data
+    print(f"📊 Analyzing {len(CONTROVERSIAL_TOPICS)} topics with enhanced bias detection...")
+    for i, topic in enumerate(CONTROVERSIAL_TOPICS, 1):
+        print(f"\n[{i}/{len(CONTROVERSIAL_TOPICS)}] Processing topic: {topic}")
+        analysis = analyze_topic_bias(topic, pages_to_analyze=5, revisions_per_page=50)
         analyses.append(analysis)
+        # Brief pause between topics to respect rate limits
+        time.sleep(1)
     
     # Generate comprehensive report
     generate_bias_report(analyses)
@@ -413,11 +800,15 @@ def main():
         "analyses": [a for a in analyses if a]
     }
     
-    with open("week7_results.json", "w") as f:
+    # Save to data directory
+    import os
+    os.makedirs("../data", exist_ok=True)
+    output_path = "../data/week7_results.json"
+    with open(output_path, "w") as f:
         json.dump(results, f, indent=2)
     
-    print(f"\n💾 Results saved to week7_results.json")
-    print(f"🌐 Open week7.html in your browser to explore the interactive analysis")
+    print(f"\n💾 Results saved to {output_path}")
+    print(f"🌐 Open web/week7.html in your browser to explore the interactive analysis")
 
 
 if __name__ == "__main__":

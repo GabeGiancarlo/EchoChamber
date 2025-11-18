@@ -1,21 +1,41 @@
 {
-  "timestamp": "2025-10-15T11:21:24.725788",
-  "topics_analyzed": 5,
+  "timestamp": "2025-11-18T15:26:43.222673",
+  "topics_analyzed": 10,
   "analyses": [
     {
       "topic": "climate change",
-      "pages_analyzed": 3,
-      "total_edits": 90,
-      "total_bot_edits": 15,
+      "pages_analyzed": 5,
+      "total_edits": 237,
+      "total_bot_edits": 26,
       "bias_indicators": [
         {
+          "type": "content_amplification_bias",
+          "description": "Bots responsible for 1/1 content amplifications",
+          "severity": "medium"
+        },
+        {
           "type": "maintenance_bias",
-          "description": "Bots make smaller edits on average (bot: 10, human: 186 chars)",
+          "description": "Bots make smaller edits on average (bot: 10, human: 187 chars)",
+          "severity": "low"
+        },
+        {
+          "type": "perception_bias_risk",
+          "description": "High bot activity (20.0%) on polarized topic - may be subject to perception biases",
           "severity": "low"
         },
         {
           "type": "maintenance_bias",
-          "description": "Bots make smaller edits on average (bot: 134, human: 515 chars)",
+          "description": "Bots make smaller edits on average (bot: 27, human: 297 chars)",
+          "severity": "low"
+        },
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 120, human: 324 chars)",
+          "severity": "low"
+        },
+        {
+          "type": "perception_bias_risk",
+          "description": "High bot activity (18.0%) on polarized topic - may be subject to perception biases",
           "severity": "low"
         }
       ],
@@ -24,160 +44,204 @@
           "title": "Climate change",
           "pageid": 5042951,
           "page_url": "https://en.wikipedia.org/wiki/Climate_change",
-          "total_edits": 30,
-          "bot_edits": 2,
-          "bot_ratio": 0.06666666666666667,
+          "total_edits": 37,
+          "bot_edits": 3,
+          "bot_ratio": 0.08108108108108109,
           "bias_indicators": [
             {
+              "type": "content_amplification_bias",
+              "description": "Bots responsible for 1/1 content amplifications",
+              "severity": "medium"
+            },
+            {
               "type": "maintenance_bias",
-              "description": "Bots make smaller edits on average (bot: 10, human: 186 chars)",
+              "description": "Bots make smaller edits on average (bot: 10, human: 187 chars)",
               "severity": "low"
             }
           ],
           "content_analysis": {
-            "size_changes_count": 29,
-            "citation_changes_count": 29,
-            "amplification_count": 1
+            "size_changes_count": 36,
+            "citation_changes_count": 36,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 36,
+            "neutrality_analysis_count": 36
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.027117004714684055,
+            "avg_human_bias_score": 0.02715436254670245,
+            "avg_bot_neutrality": 0.85,
+            "avg_human_neutrality": 0.85,
+            "bias_score_difference": -3.735783201839343e-05,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "United Nations Climate Change Conference",
+          "pageid": 38755144,
+          "page_url": "https://en.wikipedia.org/wiki/United_Nations_Climate_Change_Conference",
+          "total_edits": 50,
+          "bot_edits": 3,
+          "bot_ratio": 0.06,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.010622055280630286,
+            "avg_human_bias_score": 0.010131075986983776,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 0.0004909792936465106,
+            "neutrality_score_difference": 0.0
           }
         },
         {
           "title": "Climate change denial",
           "pageid": 12474403,
           "page_url": "https://en.wikipedia.org/wiki/Climate_change_denial",
-          "total_edits": 30,
-          "bot_edits": 6,
+          "total_edits": 50,
+          "bot_edits": 10,
           "bot_ratio": 0.2,
           "bias_indicators": [
             {
-              "type": "maintenance_bias",
-              "description": "Bots make smaller edits on average (bot: 134, human: 515 chars)",
+              "type": "perception_bias_risk",
+              "description": "High bot activity (20.0%) on polarized topic - may be subject to perception biases",
               "severity": "low"
             }
           ],
           "content_analysis": {
-            "size_changes_count": 29,
-            "citation_changes_count": 29,
-            "amplification_count": 1
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.2877018460085671,
+            "avg_human_bias_score": 0.28627148313703676,
+            "avg_bot_neutrality": 0.75,
+            "avg_human_neutrality": 0.75,
+            "bias_score_difference": 0.0014303628715303107,
+            "neutrality_score_difference": 0.0
           }
         },
         {
-          "title": "Paris Agreement",
-          "pageid": 30242372,
-          "page_url": "https://en.wikipedia.org/wiki/Paris_Agreement",
-          "total_edits": 30,
-          "bot_edits": 7,
-          "bot_ratio": 0.23333333333333334,
-          "bias_indicators": [],
+          "title": "2025 United Nations Climate Change Conference",
+          "pageid": 75227876,
+          "page_url": "https://en.wikipedia.org/wiki/2025_United_Nations_Climate_Change_Conference",
+          "total_edits": 50,
+          "bot_edits": 1,
+          "bot_ratio": 0.02,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 27, human: 297 chars)",
+              "severity": "low"
+            }
+          ],
           "content_analysis": {
-            "size_changes_count": 29,
-            "citation_changes_count": 29,
-            "amplification_count": 1
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.032701111837802485,
+            "avg_human_bias_score": 0.030360373375596023,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 0.0023407384622064625,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Climate change mitigation",
+          "pageid": 2119179,
+          "page_url": "https://en.wikipedia.org/wiki/Climate_change_mitigation",
+          "total_edits": 50,
+          "bot_edits": 9,
+          "bot_ratio": 0.18,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 120, human: 324 chars)",
+              "severity": "low"
+            },
+            {
+              "type": "perception_bias_risk",
+              "description": "High bot activity (18.0%) on polarized topic - may be subject to perception biases",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.04544450856288992,
+            "avg_human_bias_score": 0.04556880757613485,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -0.00012429901324493425,
+            "neutrality_score_difference": 0.0
           }
         }
       ],
-      "overall_bot_ratio": 0.16666666666666666,
-      "bias_severity": "medium"
+      "overall_bot_ratio": 0.10970464135021098,
+      "bias_severity": "high"
     },
     {
       "topic": "vaccination",
-      "pages_analyzed": 3,
-      "total_edits": 90,
-      "total_bot_edits": 20,
+      "pages_analyzed": 5,
+      "total_edits": 250,
+      "total_bot_edits": 64,
       "bias_indicators": [
         {
-          "type": "maintenance_bias",
-          "description": "Bots make smaller edits on average (bot: 31, human: 245 chars)",
-          "severity": "low"
+          "type": "content_amplification_bias",
+          "description": "Bots responsible for 1/1 content amplifications",
+          "severity": "medium"
         },
         {
-          "type": "high_bot_ratio",
-          "description": "Significant bot edit ratio (36.7%) may indicate automated bias",
+          "type": "perception_bias_risk",
+          "description": "High bot activity (24.0%) on polarized topic - may be subject to perception biases",
           "severity": "low"
         },
         {
           "type": "controversial_topic_bias",
-          "description": "High bot activity (36.7%) on controversial topic",
+          "description": "High bot activity (26.0%) on controversial topic",
           "severity": "medium"
-        }
-      ],
-      "page_results": [
-        {
-          "title": "Vaccination",
-          "pageid": 32473,
-          "page_url": "https://en.wikipedia.org/wiki/Vaccination",
-          "total_edits": 30,
-          "bot_edits": 7,
-          "bot_ratio": 0.23333333333333334,
-          "bias_indicators": [
-            {
-              "type": "maintenance_bias",
-              "description": "Bots make smaller edits on average (bot: 31, human: 245 chars)",
-              "severity": "low"
-            }
-          ],
-          "content_analysis": {
-            "size_changes_count": 29,
-            "citation_changes_count": 29,
-            "amplification_count": 1
-          }
         },
         {
-          "title": "Vaccine hesitancy",
-          "pageid": 1742315,
-          "page_url": "https://en.wikipedia.org/wiki/Vaccine_hesitancy",
-          "total_edits": 30,
-          "bot_edits": 11,
-          "bot_ratio": 0.36666666666666664,
-          "bias_indicators": [
-            {
-              "type": "high_bot_ratio",
-              "description": "Significant bot edit ratio (36.7%) may indicate automated bias",
-              "severity": "low"
-            },
-            {
-              "type": "controversial_topic_bias",
-              "description": "High bot activity (36.7%) on controversial topic",
-              "severity": "medium"
-            }
-          ],
-          "content_analysis": {
-            "size_changes_count": 29,
-            "citation_changes_count": 29,
-            "amplification_count": 1
-          }
-        },
-        {
-          "title": "Anti-vaccine activism",
-          "pageid": 73735462,
-          "page_url": "https://en.wikipedia.org/wiki/Anti-vaccine_activism",
-          "total_edits": 30,
-          "bot_edits": 2,
-          "bot_ratio": 0.06666666666666667,
-          "bias_indicators": [],
-          "content_analysis": {
-            "size_changes_count": 29,
-            "citation_changes_count": 29,
-            "amplification_count": 1
-          }
-        }
-      ],
-      "overall_bot_ratio": 0.2222222222222222,
-      "bias_severity": "medium"
-    },
-    {
-      "topic": "artificial intelligence",
-      "pages_analyzed": 3,
-      "total_edits": 90,
-      "total_bot_edits": 13,
-      "bias_indicators": [
-        {
-          "type": "maintenance_bias",
-          "description": "Bots make smaller edits on average (bot: 176, human: 394 chars)",
+          "type": "high_bot_ratio",
+          "description": "Significant bot edit ratio (32.0%) may indicate automated bias",
           "severity": "low"
         },
         {
-          "type": "citation_bias",
-          "description": "Bots and humans show different citation patterns (bot: -1.0, human: 0.0)",
+          "type": "content_amplification_bias",
+          "description": "Bots responsible for 1/1 content amplifications",
+          "severity": "medium"
+        },
+        {
+          "type": "perception_bias_risk",
+          "description": "High bot activity (32.0%) on polarized topic - may be subject to perception biases",
+          "severity": "low"
+        },
+        {
+          "type": "high_bot_ratio",
+          "description": "Significant bot edit ratio (32.0%) may indicate automated bias",
+          "severity": "low"
+        },
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 239, human: 1428 chars)",
           "severity": "low"
         },
         {
@@ -187,7 +251,214 @@
         },
         {
           "type": "maintenance_bias",
-          "description": "Bots make smaller edits on average (bot: 2, human: 408 chars)",
+          "description": "Bots make smaller edits on average (bot: 83, human: 393 chars)",
+          "severity": "low"
+        }
+      ],
+      "page_results": [
+        {
+          "title": "Vaccination",
+          "pageid": 32473,
+          "page_url": "https://en.wikipedia.org/wiki/Vaccination",
+          "total_edits": 50,
+          "bot_edits": 12,
+          "bot_ratio": 0.24,
+          "bias_indicators": [
+            {
+              "type": "content_amplification_bias",
+              "description": "Bots responsible for 1/1 content amplifications",
+              "severity": "medium"
+            },
+            {
+              "type": "perception_bias_risk",
+              "description": "High bot activity (24.0%) on polarized topic - may be subject to perception biases",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.08003026608270024,
+            "avg_human_bias_score": 0.08021924152500752,
+            "avg_bot_neutrality": 0.75,
+            "avg_human_neutrality": 0.75,
+            "bias_score_difference": -0.00018897544230728203,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Vaccine hesitancy",
+          "pageid": 1742315,
+          "page_url": "https://en.wikipedia.org/wiki/Vaccine_hesitancy",
+          "total_edits": 50,
+          "bot_edits": 13,
+          "bot_ratio": 0.26,
+          "bias_indicators": [
+            {
+              "type": "controversial_topic_bias",
+              "description": "High bot activity (26.0%) on controversial topic",
+              "severity": "medium"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.07741625739901953,
+            "avg_human_bias_score": 0.07890359282165246,
+            "avg_bot_neutrality": 0.75,
+            "avg_human_neutrality": 0.75,
+            "bias_score_difference": -0.001487335422632935,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Vaccination policy",
+          "pageid": 13107678,
+          "page_url": "https://en.wikipedia.org/wiki/Vaccination_policy",
+          "total_edits": 50,
+          "bot_edits": 16,
+          "bot_ratio": 0.32,
+          "bias_indicators": [
+            {
+              "type": "high_bot_ratio",
+              "description": "Significant bot edit ratio (32.0%) may indicate automated bias",
+              "severity": "low"
+            },
+            {
+              "type": "content_amplification_bias",
+              "description": "Bots responsible for 1/1 content amplifications",
+              "severity": "medium"
+            },
+            {
+              "type": "perception_bias_risk",
+              "description": "High bot activity (32.0%) on polarized topic - may be subject to perception biases",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.041284538346477447,
+            "avg_human_bias_score": 0.041450536750920336,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -0.00016599840444288944,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Influenza vaccine",
+          "pageid": 1045705,
+          "page_url": "https://en.wikipedia.org/wiki/Influenza_vaccine",
+          "total_edits": 50,
+          "bot_edits": 16,
+          "bot_ratio": 0.32,
+          "bias_indicators": [
+            {
+              "type": "high_bot_ratio",
+              "description": "Significant bot edit ratio (32.0%) may indicate automated bias",
+              "severity": "low"
+            },
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 239, human: 1428 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.0,
+            "avg_human_bias_score": 0.0,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 0.0,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "COVID-19 vaccine",
+          "pageid": 63319438,
+          "page_url": "https://en.wikipedia.org/wiki/COVID-19_vaccine",
+          "total_edits": 50,
+          "bot_edits": 7,
+          "bot_ratio": 0.14,
+          "bias_indicators": [
+            {
+              "type": "content_amplification_bias",
+              "description": "Bots responsible for 1/1 content amplifications",
+              "severity": "medium"
+            },
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 83, human: 393 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.005481607764393684,
+            "avg_human_bias_score": 0.006470779251693801,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -0.0009891714873001166,
+            "neutrality_score_difference": 0.0
+          }
+        }
+      ],
+      "overall_bot_ratio": 0.256,
+      "bias_severity": "high"
+    },
+    {
+      "topic": "artificial intelligence",
+      "pages_analyzed": 5,
+      "total_edits": 242,
+      "total_bot_edits": 20,
+      "bias_indicators": [
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 0, human: 823 chars)",
+          "severity": "low"
+        },
+        {
+          "type": "citation_bias",
+          "description": "Bots and humans show different citation patterns (bot: -3.0, human: 0.1)",
+          "severity": "medium"
+        },
+        {
+          "type": "content_amplification_bias",
+          "description": "Bots responsible for 1/1 content amplifications",
+          "severity": "medium"
+        },
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 16, human: 119 chars)",
           "severity": "low"
         }
       ],
@@ -196,81 +467,169 @@
           "title": "Artificial intelligence",
           "pageid": 1164,
           "page_url": "https://en.wikipedia.org/wiki/Artificial_intelligence",
-          "total_edits": 30,
-          "bot_edits": 6,
-          "bot_ratio": 0.2,
+          "total_edits": 42,
+          "bot_edits": 1,
+          "bot_ratio": 0.023809523809523808,
           "bias_indicators": [
             {
               "type": "maintenance_bias",
-              "description": "Bots make smaller edits on average (bot: 176, human: 394 chars)",
+              "description": "Bots make smaller edits on average (bot: 0, human: 823 chars)",
               "severity": "low"
             }
           ],
           "content_analysis": {
-            "size_changes_count": 29,
-            "citation_changes_count": 29,
-            "amplification_count": 1
+            "size_changes_count": 41,
+            "citation_changes_count": 41,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 41,
+            "neutrality_analysis_count": 41
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.0640323531889797,
+            "avg_human_bias_score": 0.0649177429499738,
+            "avg_bot_neutrality": 0.75,
+            "avg_human_neutrality": 0.75,
+            "bias_score_difference": -0.0008853897609941014,
+            "neutrality_score_difference": 0.0
           }
         },
         {
           "title": "Artificial general intelligence",
           "pageid": 586357,
           "page_url": "https://en.wikipedia.org/wiki/Artificial_general_intelligence",
-          "total_edits": 30,
-          "bot_edits": 5,
-          "bot_ratio": 0.16666666666666666,
-          "bias_indicators": [
-            {
-              "type": "citation_bias",
-              "description": "Bots and humans show different citation patterns (bot: -1.0, human: 0.0)",
-              "severity": "low"
-            },
-            {
-              "type": "content_amplification_bias",
-              "description": "Bots responsible for 1/1 content amplifications",
-              "severity": "medium"
-            }
-          ],
+          "total_edits": 50,
+          "bot_edits": 7,
+          "bot_ratio": 0.14,
+          "bias_indicators": [],
           "content_analysis": {
-            "size_changes_count": 29,
-            "citation_changes_count": 29,
-            "amplification_count": 1
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.12295393943630546,
+            "avg_human_bias_score": 0.12252619229418252,
+            "avg_bot_neutrality": 0.75,
+            "avg_human_neutrality": 0.75,
+            "bias_score_difference": 0.0004277471421229445,
+            "neutrality_score_difference": 0.0
           }
         },
         {
           "title": "History of artificial intelligence",
           "pageid": 2894560,
           "page_url": "https://en.wikipedia.org/wiki/History_of_artificial_intelligence",
-          "total_edits": 30,
+          "total_edits": 50,
           "bot_edits": 2,
-          "bot_ratio": 0.06666666666666667,
+          "bot_ratio": 0.04,
           "bias_indicators": [
             {
+              "type": "citation_bias",
+              "description": "Bots and humans show different citation patterns (bot: -3.0, human: 0.1)",
+              "severity": "medium"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.03430218374850809,
+            "avg_human_bias_score": 0.035448529123293396,
+            "avg_bot_neutrality": 0.75,
+            "avg_human_neutrality": 0.75,
+            "bias_score_difference": -0.001146345374785307,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Generative artificial intelligence",
+          "pageid": 73291755,
+          "page_url": "https://en.wikipedia.org/wiki/Generative_artificial_intelligence",
+          "total_edits": 50,
+          "bot_edits": 4,
+          "bot_ratio": 0.08,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.07852788204244542,
+            "avg_human_bias_score": 0.07852675786261151,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 1.1241798339028941e-06,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "A.I. Artificial Intelligence",
+          "pageid": 142224,
+          "page_url": "https://en.wikipedia.org/wiki/A.I._Artificial_Intelligence",
+          "total_edits": 50,
+          "bot_edits": 6,
+          "bot_ratio": 0.12,
+          "bias_indicators": [
+            {
+              "type": "content_amplification_bias",
+              "description": "Bots responsible for 1/1 content amplifications",
+              "severity": "medium"
+            },
+            {
               "type": "maintenance_bias",
-              "description": "Bots make smaller edits on average (bot: 2, human: 408 chars)",
+              "description": "Bots make smaller edits on average (bot: 16, human: 119 chars)",
               "severity": "low"
             }
           ],
           "content_analysis": {
-            "size_changes_count": 29,
-            "citation_changes_count": 29,
-            "amplification_count": 1
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.09184210123337627,
+            "avg_human_bias_score": 0.0920438523670641,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -0.0002017511336878247,
+            "neutrality_score_difference": 0.0
           }
         }
       ],
-      "overall_bot_ratio": 0.14444444444444443,
+      "overall_bot_ratio": 0.08264462809917356,
       "bias_severity": "high"
     },
     {
       "topic": "gun control",
-      "pages_analyzed": 3,
-      "total_edits": 85,
-      "total_bot_edits": 12,
+      "pages_analyzed": 5,
+      "total_edits": 225,
+      "total_bot_edits": 30,
       "bias_indicators": [
         {
           "type": "maintenance_bias",
-          "description": "Bots make smaller edits on average (bot: 42, human: 760 chars)",
+          "description": "Bots make smaller edits on average (bot: 42, human: 215 chars)",
           "severity": "low"
+        },
+        {
+          "type": "content_amplification_bias",
+          "description": "Bots responsible for 1/1 content amplifications",
+          "severity": "medium"
+        },
+        {
+          "type": "content_amplification_bias",
+          "description": "Bots responsible for 1/1 content amplifications",
+          "severity": "medium"
         }
       ],
       "page_results": [
@@ -278,14 +637,24 @@
           "title": "Gun control",
           "pageid": 44276,
           "page_url": "https://en.wikipedia.org/wiki/Gun_control",
-          "total_edits": 30,
-          "bot_edits": 5,
-          "bot_ratio": 0.16666666666666666,
+          "total_edits": 50,
+          "bot_edits": 7,
+          "bot_ratio": 0.14,
           "bias_indicators": [],
           "content_analysis": {
-            "size_changes_count": 29,
-            "citation_changes_count": 29,
-            "amplification_count": 1
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.03423160066682033,
+            "avg_human_bias_score": 0.034926368186205904,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -0.0006947675193855751,
+            "neutrality_score_difference": 0.0
           }
         },
         {
@@ -298,43 +667,133 @@
           "bias_indicators": [
             {
               "type": "maintenance_bias",
-              "description": "Bots make smaller edits on average (bot: 42, human: 760 chars)",
+              "description": "Bots make smaller edits on average (bot: 42, human: 215 chars)",
               "severity": "low"
             }
           ],
           "content_analysis": {
             "size_changes_count": 24,
             "citation_changes_count": 24,
-            "amplification_count": 1
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 24,
+            "neutrality_analysis_count": 24
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.02482451282459284,
+            "avg_human_bias_score": 0.024870746320926417,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -4.6233496333578095e-05,
+            "neutrality_score_difference": 0.0
           }
         },
         {
           "title": "Gun politics in the United States",
           "pageid": 450957,
           "page_url": "https://en.wikipedia.org/wiki/Gun_politics_in_the_United_States",
-          "total_edits": 30,
-          "bot_edits": 5,
-          "bot_ratio": 0.16666666666666666,
+          "total_edits": 50,
+          "bot_edits": 10,
+          "bot_ratio": 0.2,
           "bias_indicators": [],
           "content_analysis": {
-            "size_changes_count": 29,
-            "citation_changes_count": 29,
-            "amplification_count": 1
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.07152324919295036,
+            "avg_human_bias_score": 0.07174687179417961,
+            "avg_bot_neutrality": 0.75,
+            "avg_human_neutrality": 0.75,
+            "bias_score_difference": -0.0002236226012292536,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Ship gun fire-control system",
+          "pageid": 21169396,
+          "page_url": "https://en.wikipedia.org/wiki/Ship_gun_fire-control_system",
+          "total_edits": 50,
+          "bot_edits": 7,
+          "bot_ratio": 0.14,
+          "bias_indicators": [
+            {
+              "type": "content_amplification_bias",
+              "description": "Bots responsible for 1/1 content amplifications",
+              "severity": "medium"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.012622575767324907,
+            "avg_human_bias_score": 0.012586507916327655,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 3.606785099725257e-05,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Gun laws of Australia",
+          "pageid": 450955,
+          "page_url": "https://en.wikipedia.org/wiki/Gun_laws_of_Australia",
+          "total_edits": 50,
+          "bot_edits": 4,
+          "bot_ratio": 0.08,
+          "bias_indicators": [
+            {
+              "type": "content_amplification_bias",
+              "description": "Bots responsible for 1/1 content amplifications",
+              "severity": "medium"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.059870033364060334,
+            "avg_human_bias_score": 0.060533880447570486,
+            "avg_bot_neutrality": 0.6,
+            "avg_human_neutrality": 0.6,
+            "bias_score_difference": -0.0006638470835101523,
+            "neutrality_score_difference": 0.0
           }
         }
       ],
-      "overall_bot_ratio": 0.1411764705882353,
-      "bias_severity": "low"
+      "overall_bot_ratio": 0.13333333333333333,
+      "bias_severity": "medium"
     },
     {
       "topic": "abortion",
-      "pages_analyzed": 3,
-      "total_edits": 90,
-      "total_bot_edits": 9,
+      "pages_analyzed": 5,
+      "total_edits": 230,
+      "total_bot_edits": 26,
       "bias_indicators": [
         {
           "type": "maintenance_bias",
-          "description": "Bots make smaller edits on average (bot: 2, human: 1124 chars)",
+          "description": "Bots make smaller edits on average (bot: 135, human: 873 chars)",
+          "severity": "low"
+        },
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 37, human: 139 chars)",
+          "severity": "low"
+        },
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 20, human: 413 chars)",
           "severity": "low"
         }
       ],
@@ -343,52 +802,947 @@
           "title": "Abortion",
           "pageid": 765,
           "page_url": "https://en.wikipedia.org/wiki/Abortion",
-          "total_edits": 30,
-          "bot_edits": 4,
-          "bot_ratio": 0.13333333333333333,
+          "total_edits": 50,
+          "bot_edits": 6,
+          "bot_ratio": 0.12,
           "bias_indicators": [],
           "content_analysis": {
-            "size_changes_count": 29,
-            "citation_changes_count": 29,
-            "amplification_count": 1
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.043791228758128097,
+            "avg_human_bias_score": 0.04383542052055153,
+            "avg_bot_neutrality": 0.75,
+            "avg_human_neutrality": 0.75,
+            "bias_score_difference": -4.4191762423435865e-05,
+            "neutrality_score_difference": 0.0
           }
         },
         {
           "title": "Abortion law",
           "pageid": 697618,
           "page_url": "https://en.wikipedia.org/wiki/Abortion_law",
-          "total_edits": 30,
-          "bot_edits": 3,
-          "bot_ratio": 0.1,
+          "total_edits": 39,
+          "bot_edits": 4,
+          "bot_ratio": 0.10256410256410256,
           "bias_indicators": [],
           "content_analysis": {
-            "size_changes_count": 29,
-            "citation_changes_count": 29,
-            "amplification_count": 1
+            "size_changes_count": 38,
+            "citation_changes_count": 38,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 38,
+            "neutrality_analysis_count": 38
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.009384160234661855,
+            "avg_human_bias_score": 0.009400677080329302,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -1.6516845667446933e-05,
+            "neutrality_score_difference": 0.0
           }
         },
         {
           "title": "Abortion in the United States",
           "pageid": 256024,
           "page_url": "https://en.wikipedia.org/wiki/Abortion_in_the_United_States",
-          "total_edits": 30,
-          "bot_edits": 2,
-          "bot_ratio": 0.06666666666666667,
+          "total_edits": 41,
+          "bot_edits": 4,
+          "bot_ratio": 0.0975609756097561,
           "bias_indicators": [
             {
               "type": "maintenance_bias",
-              "description": "Bots make smaller edits on average (bot: 2, human: 1124 chars)",
+              "description": "Bots make smaller edits on average (bot: 135, human: 873 chars)",
               "severity": "low"
             }
           ],
           "content_analysis": {
-            "size_changes_count": 29,
-            "citation_changes_count": 29,
-            "amplification_count": 1
+            "size_changes_count": 40,
+            "citation_changes_count": 40,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 40,
+            "neutrality_analysis_count": 40
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.07727081754733997,
+            "avg_human_bias_score": 0.0764685265758427,
+            "avg_bot_neutrality": 0.65,
+            "avg_human_neutrality": 0.65,
+            "bias_score_difference": 0.0008022909714972687,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Abortion-rights movement",
+          "pageid": 37600898,
+          "page_url": "https://en.wikipedia.org/wiki/Abortion-rights_movement",
+          "total_edits": 50,
+          "bot_edits": 5,
+          "bot_ratio": 0.1,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 37, human: 139 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.15579287268175854,
+            "avg_human_bias_score": 0.15699098316167504,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -0.0011981104799164977,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Anti-abortion movements",
+          "pageid": 37600900,
+          "page_url": "https://en.wikipedia.org/wiki/Anti-abortion_movements",
+          "total_edits": 50,
+          "bot_edits": 7,
+          "bot_ratio": 0.14,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 20, human: 413 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.21405591669726495,
+            "avg_human_bias_score": 0.21615376039219006,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -0.0020978436949251056,
+            "neutrality_score_difference": 0.0
+          }
+        }
+      ],
+      "overall_bot_ratio": 0.11304347826086956,
+      "bias_severity": "medium"
+    },
+    {
+      "topic": "immigration",
+      "pages_analyzed": 5,
+      "total_edits": 184,
+      "total_bot_edits": 28,
+      "bias_indicators": [
+        {
+          "type": "citation_bias",
+          "description": "Bots and humans show different citation patterns (bot: -0.1, human: 5.4)",
+          "severity": "medium"
+        },
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 272, human: 2476 chars)",
+          "severity": "low"
+        },
+        {
+          "type": "perception_bias_risk",
+          "description": "High bot activity (24.0%) on polarized topic - may be subject to perception biases",
+          "severity": "low"
+        },
+        {
+          "type": "perception_bias_risk",
+          "description": "High bot activity (17.6%) on polarized topic - may be subject to perception biases",
+          "severity": "low"
+        },
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 451, human: 2541 chars)",
+          "severity": "low"
+        }
+      ],
+      "page_results": [
+        {
+          "title": "Immigration",
+          "pageid": 4599312,
+          "page_url": "https://en.wikipedia.org/wiki/Immigration",
+          "total_edits": 50,
+          "bot_edits": 12,
+          "bot_ratio": 0.24,
+          "bias_indicators": [
+            {
+              "type": "citation_bias",
+              "description": "Bots and humans show different citation patterns (bot: -0.1, human: 5.4)",
+              "severity": "medium"
+            },
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 272, human: 2476 chars)",
+              "severity": "low"
+            },
+            {
+              "type": "perception_bias_risk",
+              "description": "High bot activity (24.0%) on polarized topic - may be subject to perception biases",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 2,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.03181492955024579,
+            "avg_human_bias_score": 0.03178769584181826,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 2.723370842753342e-05,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Immigration to the United States",
+          "pageid": 15051,
+          "page_url": "https://en.wikipedia.org/wiki/Immigration_to_the_United_States",
+          "total_edits": 34,
+          "bot_edits": 6,
+          "bot_ratio": 0.17647058823529413,
+          "bias_indicators": [
+            {
+              "type": "perception_bias_risk",
+              "description": "High bot activity (17.6%) on polarized topic - may be subject to perception biases",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 33,
+            "citation_changes_count": 33,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 33,
+            "neutrality_analysis_count": 33
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.03011840309344675,
+            "avg_human_bias_score": 0.030130471252105447,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -1.2068158658697786e-05,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Immigration Act",
+          "pageid": 302536,
+          "page_url": "https://en.wikipedia.org/wiki/Immigration_Act",
+          "total_edits": 50,
+          "bot_edits": 5,
+          "bot_ratio": 0.1,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.0,
+            "avg_human_bias_score": 0.0,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 0.0,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "United States Immigration and Customs Enforcement",
+          "pageid": 216537,
+          "page_url": "https://en.wikipedia.org/wiki/United_States_Immigration_and_Customs_Enforcement",
+          "total_edits": 50,
+          "bot_edits": 5,
+          "bot_ratio": 0.1,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 451, human: 2541 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 2,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.12833130864240858,
+            "avg_human_bias_score": 0.12684557653742706,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 0.001485732104981513,
+            "neutrality_score_difference": 0.0
+          }
+        }
+      ],
+      "overall_bot_ratio": 0.15217391304347827,
+      "bias_severity": "high"
+    },
+    {
+      "topic": "renewable energy",
+      "pages_analyzed": 5,
+      "total_edits": 250,
+      "total_bot_edits": 46,
+      "bias_indicators": [
+        {
+          "type": "content_amplification_bias",
+          "description": "Bots responsible for 1/1 content amplifications",
+          "severity": "medium"
+        },
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 164, human: 572 chars)",
+          "severity": "low"
+        },
+        {
+          "type": "high_bot_ratio",
+          "description": "Significant bot edit ratio (34.0%) may indicate automated bias",
+          "severity": "low"
+        },
+        {
+          "type": "biased_language_bias",
+          "description": "Bots introduce more biased language (bot: 0.01, human: 0.01 bias score)",
+          "severity": "low"
+        }
+      ],
+      "page_results": [
+        {
+          "title": "Renewable energy",
+          "pageid": 25784,
+          "page_url": "https://en.wikipedia.org/wiki/Renewable_energy",
+          "total_edits": 50,
+          "bot_edits": 8,
+          "bot_ratio": 0.16,
+          "bias_indicators": [
+            {
+              "type": "content_amplification_bias",
+              "description": "Bots responsible for 1/1 content amplifications",
+              "severity": "medium"
+            },
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 164, human: 572 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.010022998544823759,
+            "avg_human_bias_score": 0.010022913534427256,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 8.501039650346542e-08,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Renewable energy in the United States",
+          "pageid": 11456251,
+          "page_url": "https://en.wikipedia.org/wiki/Renewable_energy_in_the_United_States",
+          "total_edits": 50,
+          "bot_edits": 12,
+          "bot_ratio": 0.24,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.015328706825095012,
+            "avg_human_bias_score": 0.015447173249695113,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -0.00011846642460010097,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Renewable energy commercialization",
+          "pageid": 10418624,
+          "page_url": "https://en.wikipedia.org/wiki/Renewable_energy_commercialization",
+          "total_edits": 50,
+          "bot_edits": 17,
+          "bot_ratio": 0.34,
+          "bias_indicators": [
+            {
+              "type": "high_bot_ratio",
+              "description": "Significant bot edit ratio (34.0%) may indicate automated bias",
+              "severity": "low"
+            },
+            {
+              "type": "biased_language_bias",
+              "description": "Bots introduce more biased language (bot: 0.01, human: 0.01 bias score)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.01476746189032541,
+            "avg_human_bias_score": 0.012119382743752847,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 0.0026480791465725625,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "List of countries by renewable electricity production",
+          "pageid": 17068576,
+          "page_url": "https://en.wikipedia.org/wiki/List_of_countries_by_renewable_electricity_production",
+          "total_edits": 50,
+          "bot_edits": 0,
+          "bot_ratio": 0.0,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0,
+            "avg_human_bias_score": 0.0,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 0.0,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Renewable energy in Australia",
+          "pageid": 10337796,
+          "page_url": "https://en.wikipedia.org/wiki/Renewable_energy_in_Australia",
+          "total_edits": 50,
+          "bot_edits": 9,
+          "bot_ratio": 0.18,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.050893134956884536,
+            "avg_human_bias_score": 0.0558286536410957,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -0.004935518684211167,
+            "neutrality_score_difference": 0.0
+          }
+        }
+      ],
+      "overall_bot_ratio": 0.184,
+      "bias_severity": "high"
+    },
+    {
+      "topic": "genetic engineering",
+      "pages_analyzed": 5,
+      "total_edits": 250,
+      "total_bot_edits": 61,
+      "bias_indicators": [
+        {
+          "type": "content_amplification_bias",
+          "description": "Bots responsible for 1/1 content amplifications",
+          "severity": "medium"
+        },
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 68, human: 1250 chars)",
+          "severity": "low"
+        },
+        {
+          "type": "high_bot_ratio",
+          "description": "Significant bot edit ratio (38.0%) may indicate automated bias",
+          "severity": "low"
+        },
+        {
+          "type": "content_amplification_bias",
+          "description": "Bots responsible for 1/1 content amplifications",
+          "severity": "medium"
+        },
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 160, human: 377 chars)",
+          "severity": "low"
+        }
+      ],
+      "page_results": [
+        {
+          "title": "Genetic engineering",
+          "pageid": 12383,
+          "page_url": "https://en.wikipedia.org/wiki/Genetic_engineering",
+          "total_edits": 50,
+          "bot_edits": 11,
+          "bot_ratio": 0.22,
+          "bias_indicators": [
+            {
+              "type": "content_amplification_bias",
+              "description": "Bots responsible for 1/1 content amplifications",
+              "severity": "medium"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.021722978031307523,
+            "avg_human_bias_score": 0.021785341924641276,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -6.23638933337535e-05,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Index of genetics articles",
+          "pageid": 1612722,
+          "page_url": "https://en.wikipedia.org/wiki/Index_of_genetics_articles",
+          "total_edits": 50,
+          "bot_edits": 6,
+          "bot_ratio": 0.12,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.029965527597033775,
+            "avg_human_bias_score": 0.030067584645526266,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -0.00010205704849249042,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "History of genetic engineering",
+          "pageid": 37214939,
+          "page_url": "https://en.wikipedia.org/wiki/History_of_genetic_engineering",
+          "total_edits": 50,
+          "bot_edits": 14,
+          "bot_ratio": 0.28,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 68, human: 1250 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.03361214880155127,
+            "avg_human_bias_score": 0.034258498684715574,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -0.000646349883164303,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Human genetic enhancement",
+          "pageid": 887836,
+          "page_url": "https://en.wikipedia.org/wiki/Human_genetic_enhancement",
+          "total_edits": 50,
+          "bot_edits": 19,
+          "bot_ratio": 0.38,
+          "bias_indicators": [
+            {
+              "type": "high_bot_ratio",
+              "description": "Significant bot edit ratio (38.0%) may indicate automated bias",
+              "severity": "low"
+            },
+            {
+              "type": "content_amplification_bias",
+              "description": "Bots responsible for 1/1 content amplifications",
+              "severity": "medium"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.0,
+            "avg_human_bias_score": 0.0,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 0.0,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Genetic engineering techniques",
+          "pageid": 37319629,
+          "page_url": "https://en.wikipedia.org/wiki/Genetic_engineering_techniques",
+          "total_edits": 50,
+          "bot_edits": 11,
+          "bot_ratio": 0.22,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 160, human: 377 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.0,
+            "avg_human_bias_score": 0.0,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 0.0,
+            "neutrality_score_difference": 0.0
+          }
+        }
+      ],
+      "overall_bot_ratio": 0.244,
+      "bias_severity": "high"
+    },
+    {
+      "topic": "social media",
+      "pages_analyzed": 5,
+      "total_edits": 200,
+      "total_bot_edits": 20,
+      "bias_indicators": [
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 87, human: 458 chars)",
+          "severity": "low"
+        },
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 95, human: 293 chars)",
+          "severity": "low"
+        },
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 10, human: 72 chars)",
+          "severity": "low"
+        }
+      ],
+      "page_results": [
+        {
+          "title": "Social media marketing",
+          "pageid": 21179478,
+          "page_url": "https://en.wikipedia.org/wiki/Social_media_marketing",
+          "total_edits": 50,
+          "bot_edits": 4,
+          "bot_ratio": 0.08,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 87, human: 458 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.025122790626806085,
+            "avg_human_bias_score": 0.025690640251451465,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -0.0005678496246453793,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Timeline of social media",
+          "pageid": 51181206,
+          "page_url": "https://en.wikipedia.org/wiki/Timeline_of_social_media",
+          "total_edits": 50,
+          "bot_edits": 3,
+          "bot_ratio": 0.06,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 95, human: 293 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.03823268566887664,
+            "avg_human_bias_score": 0.04174450447620739,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -0.0035118188073307507,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Tweet (social media)",
+          "pageid": 68533868,
+          "page_url": "https://en.wikipedia.org/wiki/Tweet_(social_media)",
+          "total_edits": 50,
+          "bot_edits": 4,
+          "bot_ratio": 0.08,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 10, human: 72 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.07875482377445465,
+            "avg_human_bias_score": 0.06906649225552303,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 0.009688331518931628,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Dark social media",
+          "pageid": 51844253,
+          "page_url": "https://en.wikipedia.org/wiki/Dark_social_media",
+          "total_edits": 50,
+          "bot_edits": 9,
+          "bot_ratio": 0.18,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.04154385956519127,
+            "avg_human_bias_score": 0.04722063548852502,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -0.005676775923333752,
+            "neutrality_score_difference": 0.0
           }
         }
       ],
       "overall_bot_ratio": 0.1,
+      "bias_severity": "medium"
+    },
+    {
+      "topic": "cryptocurrency",
+      "pages_analyzed": 5,
+      "total_edits": 250,
+      "total_bot_edits": 32,
+      "bias_indicators": [
+        {
+          "type": "maintenance_bias",
+          "description": "Bots make smaller edits on average (bot: 27, human: 82 chars)",
+          "severity": "low"
+        }
+      ],
+      "page_results": [
+        {
+          "title": "Cryptocurrency",
+          "pageid": 36662188,
+          "page_url": "https://en.wikipedia.org/wiki/Cryptocurrency",
+          "total_edits": 50,
+          "bot_edits": 10,
+          "bot_ratio": 0.2,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.048405509700002555,
+            "avg_human_bias_score": 0.04847223659089923,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": -6.6726890896672e-05,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Tether (cryptocurrency)",
+          "pageid": 55977923,
+          "page_url": "https://en.wikipedia.org/wiki/Tether_(cryptocurrency)",
+          "total_edits": 50,
+          "bot_edits": 4,
+          "bot_ratio": 0.08,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.05196684555668212,
+            "avg_human_bias_score": 0.052050268593290795,
+            "avg_bot_neutrality": 0.75,
+            "avg_human_neutrality": 0.75,
+            "bias_score_difference": -8.342303660867356e-05,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "Cryptocurrency bubble",
+          "pageid": 56071119,
+          "page_url": "https://en.wikipedia.org/wiki/Cryptocurrency_bubble",
+          "total_edits": 50,
+          "bot_edits": 5,
+          "bot_ratio": 0.1,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.0,
+            "avg_human_bias_score": 0.0,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 0.0,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "List of cryptocurrencies",
+          "pageid": 39492103,
+          "page_url": "https://en.wikipedia.org/wiki/List_of_cryptocurrencies",
+          "total_edits": 50,
+          "bot_edits": 10,
+          "bot_ratio": 0.2,
+          "bias_indicators": [],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.0,
+            "avg_human_bias_score": 0.0,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 0.0,
+            "neutrality_score_difference": 0.0
+          }
+        },
+        {
+          "title": "USDC (cryptocurrency)",
+          "pageid": 63586775,
+          "page_url": "https://en.wikipedia.org/wiki/USDC_(cryptocurrency)",
+          "total_edits": 50,
+          "bot_edits": 3,
+          "bot_ratio": 0.06,
+          "bias_indicators": [
+            {
+              "type": "maintenance_bias",
+              "description": "Bots make smaller edits on average (bot: 27, human: 82 chars)",
+              "severity": "low"
+            }
+          ],
+          "content_analysis": {
+            "size_changes_count": 49,
+            "citation_changes_count": 49,
+            "amplification_count": 1,
+            "bias_phrase_analysis_count": 49,
+            "neutrality_analysis_count": 49
+          },
+          "enhanced_metrics": {
+            "avg_bot_bias_score": 0.0,
+            "avg_human_bias_score": 0.0,
+            "avg_bot_neutrality": 1.0,
+            "avg_human_neutrality": 1.0,
+            "bias_score_difference": 0.0,
+            "neutrality_score_difference": 0.0
+          }
+        }
+      ],
+      "overall_bot_ratio": 0.128,
       "bias_severity": "low"
     }
   ]
