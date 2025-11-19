@@ -76,10 +76,10 @@ Wikipedia relies on a mixed ecosystem of human editors and automated tools (bots
 - Ethics: all data are public; we will not attempt to deanonymize editors beyond publicly visible usernames; the project will follow Wikimedia terms of use and community norms.
 
  ### Measuring Bias
-  - Word choice bias: using an LLM to define a word as being subjective, exaggerated, or not to create a percentage/proportion
+  - Word choice bias: using an LLM to define a word as being subjective, exaggerated, or not. Take the total proportion or percentage of bias words in a paragraph to get the word bias percentage.
     - Examples: “The radical activists…” vs. “The dedicated activists…
-  - Omission bias: Leaving out key context that changes how readers perceive events. This one might be hard for wikipedia
-  - Framing bias: The only way to measure framing is really through an LLM that can intrepret context
+  - Omission bias: Leaving out key context that changes how readers perceive events. This one might be hard for wikipedia. Also since LLMs are trained on wikipedia, it might be a cyclic feedback loop.
+  - Framing bias: The only way to measure framing is really through an LLM that can intrepret context. Does there exist others ways of framing a sentence, and how does the current frame compare to others in terms of bias percentage above?
     - Example: “Tax relief” implies taxes are harmful; “tax contribution” implies civic duty. 
 
 ---
