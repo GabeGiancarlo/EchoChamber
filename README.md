@@ -82,6 +82,19 @@ Wikipedia relies on a mixed ecosystem of human editors and automated tools (bots
   - Framing bias: The only way to measure framing is really through an LLM that can intrepret context. Does there exist others ways of framing a sentence, and how does the current frame compare to others in terms of bias percentage above?
     - Example: “Tax relief” implies taxes are harmful; “tax contribution” implies civic duty. 
 
+### Classifying Categories
+- Controversial vs Non-Controversial
+  - Controversial: Widely debated, morally charged, high disagreement.
+  - Non-Controversial: Generally accepted, low emotional charge, minimal public disagreement.
+- Political vs. Non-Political
+  - Political: Involves government, policy, elections, public institutions.
+  - Non-Political: Not involving governance or public policy.
+- Sensitive vs. Non-Sensitive
+  - Sensitive: Topics that elicit strong emotional, personal, or ethical responses (e.g., death, crime, sexuality).  
+  - Non-Sensitive: Everyday or technical topics without emotional volatility.
+- Technical vs. Non-Technical
+  - Technical: Domain-specific knowledge required (biology, computing, engineering).
+  - Non-Technical: Accessible to general audiences.
 ---
 
 ## Program: `src/test_wikipedia_api.py` (brief description)
